@@ -40,7 +40,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { ">$", "@w", "||", "#i", "+∞", "®™", "„”", "↓↑", "V¯" };
+static const char *tags[] = { ">$", "#i", "@w", "||", "::", ">>", "+∞", "∨∧", "„”"};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -51,6 +51,7 @@ static const Rule rules[] = {
 //	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 //	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 //	{ "mpv",  NULL,       NULL,       0,       1,           -1 }
+//	{ "net-mc-main-Main", "sun-awt-X11-XFramePeer",     NULL,       0,       1,        -1 }
 };
 
 /* layout(s) */
@@ -83,24 +84,35 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", NULL };
-static const char *rofi[] = { "rofi_run", NULL };
+static const char *rofi[] = { "rofi", "-show", "run", NULL };
+static const char *rofic[] = { "rofi", "-show", "calc", NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *termtab[]  = { "sh", "-c", "tabbed st -w", NULL };
 static const char *alacr[]  = { "alacritty", NULL };
 static const char *urxvt[]  = { "urxvt", NULL };
+static const char *urxvtt[]  = { "sh", "-c", "tabbed urxvt -embed", NULL };
 static const char *pcman[]  = { "pcmanfm", NULL };
 static const char *qute[]  = { "qutebrowser", NULL };
 static const char *pqute[]  = { "qutebrowser", "-T", NULL };
 static const char *qterm[]  = { "qterminal", NULL };
-static const char *scrsh[]  = { "scrot", NULL };
+static const char *scrsh[]  = { "shotgun", NULL };
+static const char *shotg[]  = { "sh", "-c", "~/.scrs/scrshg.sh", NULL };
+static const char *shotc[]  = { "sh", "-c", "~/.scrs/scrshc.sh", NULL };
+static const char *surf[]  = { "sh", "-c", "tabbed surf -e", NULL };
 
+static const char *pvolm[]  = { "sh", "-c", "pactl set-sink-volume @DEFAULT_SINK@ -5%", NULL };
+static const char *pvolp[]  = { "sh", "-c", "pactl set-sink-volume @DEFAULT_SINK@ +5%", NULL };
 static const char *volm[]  = { "sh", "-c", "amixer -c 0 -- sset Master 2dB-", NULL };
 static const char *volp[]  = { "sh", "-c", "amixer -c 0 -- sset Master 2dB+", NULL };
-//static const char *susp[]  = { "sh", "-c", "loginctl suspend", NULL };
-static const char *susp[]  = { "loginctl",  "suspend", NULL };
-static const char *ssusp[]  = { "sh", "-c", "loginctl suspend && slock", NULL };
-static const char *bsusp[]  = { "sh", "-c", "i3lock-fancy -p && loginctl suspend", NULL };
-static const char *isusp[]  = { "xlock",  "-startCmd",  "loginctl suspend", NULL };
+//static const char *susp[]  = { "loginctl",  "suspend", NULL };
+//static const char *ssusp[]  = { "sh", "-c", "loginctl suspend && slock", NULL };
+static const char *susp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && loginctl suspend && doas chvt $C && export C= N=", NULL };
+static const char *bsusp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && i3lock-fancy -p && loginctl suspend && doas chvt $C && export C= N=", NULL };
+static const char *isusp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && loginctl suspend && sleep 1 && doas chvt $C && xlock && export C= N=", NULL };
+//static const char *bsusp[]  = { "sh", "-c", "i3lock-fancy -p && loginctl suspend", NULL };
+//static const char *isusp[]  = { "xlock",  "-startCmd",  "loginctl suspend", NULL };
 static const char *xra[]  = { "sh", "-c", "xrandr --output HDMI1 --mode 1920x1080 --primary && xrandr --output LVDS1 --right-of HDMI1 && nitrogen --restore", NULL };
+
 static const char *plumb[]  = { "sh", "-c", "xclip -o | sh -s | xmessage -file -", NULL };
 static const char *plumbc[]  = { "sh", "-c", "xclip -o | sh -s | xclip -o | xclip -selection clipboard -i", NULL };
 static const char *dclip[]  = { "sh", "-c", "echo | dmenu && xclip -o | xclip -selection clipboard -i", NULL };
@@ -109,16 +121,22 @@ static const char *clip[]  = { "sh", "-c", "xclip -o | xclip -selection clipboar
 static const char *scr1[]  = { "sh", "-c", "~/.scrs/scr1.sh", NULL };
 static const char *scr2[]  = { "sh", "-c", "~/.scrs/scr2.sh", NULL };
 static const char *scr3[]  = { "sh", "-c", "~/.scrs/scr3.sh", NULL };
+static const char *imgv[]  = { "sh", "-c", "~/.scrs/imgv.sh", NULL };
 static const char *mocp[]  = { "sh", "-c", "~/.scrs/mode.sh mocp", NULL };
 static const char *acmem[]  = { "sh", "-c", "~/.scrs/mode.sh acme", NULL };
 static const char *dispm[]  = { "sh", "-c", "~/.scrs/display-maker.sh", NULL };
+static const char *qwerty[]  = { "sh", "-c", "xmodmap ~/.xmodmap.qwerty", NULL };
+static const char *workman[]  = { "sh", "-c", "xmodmap ~/.xmodmap.workman", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_g,      spawn,          {.v = rofi } },
+	{ MODKEY|ControlMask,           XK_g,      spawn,          {.v = rofic } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termtab } },
 	{ MODKEY,                       XK_slash,  spawn,          {.v = urxvt } },
+	{ MODKEY|ShiftMask,             XK_slash,  spawn,          {.v = urxvtt } },
 	{ MODKEY|ShiftMask,             XK_a,	   spawn,          {.v = alacr } },
 	{ MODKEY,		 	XK_p,	   spawn,          {.v = dispm } },
 	{ MODKEY|ShiftMask,	 	XK_p,	   spawn,          {.v = xra } },
@@ -127,10 +145,16 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_q, 	   spawn,          {.v = qterm } },
 	{ MODKEY|ShiftMask,             XK_q, 	   spawn,          {.v = pqute } },
 	{ MODKEY|Mod1Mask,              XK_s, 	   spawn,          {.v = bsusp } },
+	{ MODKEY|ControlMask,           XK_Home,   spawn,          {.v = qwerty } },
+	{ MODKEY|ControlMask,           XK_End,    spawn,          {.v = workman } },
+	{ MODKEY,                       XK_b, 	   spawn,          {.v = surf } },
+
 	{ MODKEY|ShiftMask,             XK_s, 	   spawn,          {.v = isusp } },
-	{ MODKEY|ControlMask,           XK_s, 	   spawn,          {.v = ssusp } },
-	{ MODKEY|ControlMask,           XK_l, 	   spawn,          {.v = susp } },
+//	{ MODKEY|ControlMask,           XK_s, 	   spawn,          {.v = ssusp } },
+//	{ MODKEY|ControlMask,           XK_l, 	   spawn,          {.v = susp } },
 	{ MODKEY|Mod1Mask,	        XK_l, 	   spawn,          {.v = scrsh} },
+	{ MODKEY|Mod1Mask|ControlMask,  XK_l, 	   spawn,          {.v = shotg} },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_l, 	   spawn,          {.v = shotc} },
 	{ MODKEY,           		XK_s, 	   spawn,          {.v = plumb } },
 	{ MODKEY,           		XK_m, 	   spawn,          {.v = mocp } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,      	{.v = plumbc } },
@@ -138,6 +162,7 @@ static Key keys[] = {
 	{ MODKEY,	                XK_grave,  spawn,      	{.v = scr1} },
 	{ MODKEY|ShiftMask,	        XK_grave,  spawn,      	{.v = scr2} },
 	{ MODKEY|ControlMask,           XK_grave,  spawn,      	{.v = scr3} },
+	{ MODKEY,	                XK_i,      spawn,      	{.v = imgv } },
 	{ MODKEY,	                XK_Tab,    spawn,      	{.v = dclip } },
 	{ MODKEY|Mod1Mask,              XK_Tab,    spawn,      	{.v = clip } },
 	{ MODKEY|ShiftMask,             XK_Tab,    togglebar,      {-1} },
@@ -150,6 +175,8 @@ static Key keys[] = {
 	{ MODKEY|Mod1Mask,              XK_h,      view,     { -1 } },
 	{ MODKEY,                       XK_j,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_k,      setmfact,       {.f = +0.05} },
+	{ MODKEY|ShiftMask,             XK_j,      setmfact,       {.f = -0.01} },
+	{ MODKEY|ShiftMask,             XK_k,      setmfact,       {.f = +0.01} },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY|ControlMask,           XK_Tab,    view,           {0} },
 	{ MODKEY,	                XK_c,      killclient,     {0} },
@@ -169,6 +196,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_bracketright, focusmon,       {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,	                XK_comma,  spawn,          {.v = pvolm } },
+	{ MODKEY,        	        XK_period, spawn,          {.v = pvolp } },
 	{ MODKEY|ShiftMask,             XK_comma,  spawn,          {.v = volm } },
 	{ MODKEY|ShiftMask,             XK_period, spawn,          {.v = volp } },
 
