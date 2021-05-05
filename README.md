@@ -1,5 +1,6 @@
 # my-dwm
 My build of dwm
+It has many patches applied
 
 # Requirements
 In order to build dwm you need the Xlib header files.
@@ -38,29 +39,47 @@ like this in your .xinitrc:
 The configuration of dwm is done by creating a custom config.h
 and (re)compiling the source code.
 
-# Programs used (bind to keys):
+# Patches:
+- activetagindicator
+- attachdirection
+- awesomebar
+- deck-double
+- fullgaps
+- pertag
+I don't know if these are all xd
 
+# Programs used (bind to keys):
 - dmenu
 - st
+- tabbed
 - urxvt
 - alacritty
-- qterminal
-- doas (much friendlier than sudo)
+- xrandr
 - xclip
 - xmessage
 - xlock
+- xmodmap
+- xclip
+- doas (much friendlier than sudo,
+used for workaround to suspend computer)
 - i3lock-fancy
 - elogind (loginctl command, I don't use systemd)
 - dzen2
 - rofi
-- shotgun
-- slop
-- pcmanfm
 - qutebrowser
+- pass (passmenu)
+- amixer (it is hard to make it work)
+- pactl (it is slightly easier than alsa)
+and shell scripts in ~/.scrs, because it is sometimes easier
+to bind script than single command
 
-.xinitrc (.xinit_dwm), and scripts used are in my dotfiles
+# Some info
+All xmodmap files are separate keyboard layouts
+
+.xinitrc (.xinitrc_dwm), and scripts used are in my dotfiles
 repository I wanted to have modes like in i3, i wrote one
 for moc with dzen2.
+
 I have problems with NVIDIA drivers, when I suspend computer
 I get black screen and it doesn't react to keyboard, hence
 long command to suspend.
