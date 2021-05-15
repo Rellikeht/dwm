@@ -136,6 +136,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_w,      spawn,        { .v = passm } },
 	{ MODKEY|ControlMask,           XK_w,      spawn,        { .v = scrkbd } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,        { .v = passt } },
+	{ MODKEY,             		XK_BackSpace,spawn,        { .v = qwerty } },
 
 	{ MODKEY|ShiftMask,             XK_s, 	   spawn,          {.v = isusp } },
 	{ MODKEY|ControlMask,           XK_s, 	   spawn,          {.v = susp } },

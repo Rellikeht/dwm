@@ -2,3 +2,4 @@ dwm
 .ccls*
 *.diff
 *.swp
+*.o
