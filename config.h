@@ -94,8 +94,8 @@ static const char *volp[]  = { "sh", "-c", "amixer -c 0 -- sset Master 2dB+", NU
 //static const char *ssusp[]  = { "sh", "-c", "loginctl suspend && slock", NULL };
 //static const char *susp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && sleep 1 && loginctl suspend && sleep 5 && doas chvt $C && export C= N=", NULL };
 static const char *susp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && sleep 1 && loginctl suspend", NULL };
-static const char *bsusp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && sleep 1 && loginctl suspend && sleep 5 && doas chvt $C && i3lock-fancy -p && export C= N=", NULL };
-static const char *isusp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && sleep 1 && loginctl suspend && sleep 5 && doas chvt $C && xlock && export C= N=", NULL };
+static const char *bsusp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && sleep 1 && loginctl suspend && sleep 4 && doas chvt $C && i3lock-fancy -p && export C= N=", NULL };
+static const char *isusp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && sleep 1 && loginctl suspend && sleep 4 && doas chvt $C && xlock && export C= N=", NULL };
 //static const char *bsusp[]  = { "sh", "-c", "i3lock-fancy -p && loginctl suspend", NULL };
 //static const char *isusp[]  = { "xlock",  "-startCmd",  "loginctl suspend", NULL };
 static const char *xra[]  = { "sh", "-c", "xrandr --output HDMI1 --mode 1920x1080 --primary && xrandr --output LVDS1 --right-of HDMI1 && nitrogen --restore", NULL };
