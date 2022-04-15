@@ -40,9 +40,6 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-//	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-//	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
-//	{ "mpv",  NULL,       NULL,       0,       1,           -1 }
 };
 
 /* layout(s) */
@@ -84,19 +81,14 @@ static const char *alacrt[]  = { "sh", "-c", "tabbed alacritty --embed", NULL };
 static const char *urxvtt[]  = { "sh", "-c", "tabbed urxvt -embed", NULL };
 static const char *qute[]  = { "sh", "-c", "$qutebrowser", NULL };
 static const char *pqute[]  = { "sh", "-c", "$qutebrowser -T", NULL };
-static const char *shotg[]  = { "sh", "~/.scrs/scrshg.sh", NULL };
+static const char *shotg[]  = { "sh", "-c", "~/.scrs/scrshg.sh", NULL };
 static const char *surf[]  = { "sh", "-c", "tabbed surf -e", NULL };
 
 static const char *scrkbd[]  = { "svkbd-mobile-intl", NULL };
 static const char *poweroff[]  = { "sh", "-c", "loginctl poweroff", NULL };
-
-//static const char *susp[]  = { "loginctl",  "suspend", NULL };
-//static const char *ssusp[]  = { "sh", "-c", "loginctl suspend -i && slock", NULL };
-//static const char *bsusp[]  = { "sh", "-c", "i3lock-fancy -p && loginctl suspend -i", NULL };
-//static const char *isusp[]  = { "xlock",  "-startCmd",  "loginctl suspend -i", NULL };
-static const char *susp[]  = { "sh", "~/.scrs/suspend1.sh", NULL };
-static const char *bsusp[]  = { "sh", "~/.scrs/suspend2.sh", NULL };
-static const char *isusp[]  = { "sh", "~/.scrs/suspend3.sh", NULL };
+static const char *susp[]  = { "sh", "-c", "~/.local_scrs/suspend1.sh", NULL };
+static const char *bsusp[]  = { "sh", "-c", "~/.local_scrs/suspend2.sh", NULL };
+static const char *isusp[]  = { "sh", "-c", "~/.local_scrs/suspend3.sh", NULL };
 
 //static const char *plumb[]  = { "sh", "-c", "xclip -o | sh -s | xmessage -file -", NULL };
 //static const char *plumbc[]  = { "sh", "-c", "xclip -o | sh -s | xclip -o | xclip -selection clipboard -i", NULL };
@@ -128,8 +120,6 @@ static Key keys[] = {
 	{ MODKEY,		 	XK_p,	   spawn,          {.v = dispm } },
 	{ MODKEY,                       XK_q, 	   spawn,          {.v = qute } },
 	{ MODKEY|ShiftMask,             XK_q, 	   spawn,          {.v = pqute } },
-	{ MODKEY|ControlMask,           XK_q, 	   spawn,          {.v = poweroff } },
-	{ MODKEY|Mod1Mask,              XK_s, 	   spawn,          {.v = bsusp } },
 	{ MODKEY,	                XK_i,      spawn,      	{.v = workman } },
 	{ MODKEY,	             	XK_u,      spawn,      	{.v = qwerty } },
 	{ MODKEY,                       XK_w,      spawn,        { .v = passm } },
@@ -139,6 +129,9 @@ static Key keys[] = {
 
 	{ MODKEY|ShiftMask,             XK_s, 	   spawn,          {.v = isusp } },
 	{ MODKEY|ControlMask,           XK_s, 	   spawn,          {.v = susp } },
+	{ MODKEY|Mod1Mask,              XK_s, 	   spawn,          {.v = bsusp } },
+	{ MODKEY|ControlMask,           XK_q, 	   spawn,          {.v = poweroff } },
+
 	{ MODKEY|Mod1Mask|ControlMask,  XK_l, 	   spawn,          {.v = shotg} },
 	{ MODKEY,           		XK_m, 	   spawn,          {.v = mocp } },
 	{ MODKEY|ShiftMask,           	XK_m, 	   spawn,          {.v = cmus} },
@@ -187,10 +180,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_bracketright, focusmon,       {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, tagmon,         {.i = +1 } },
-//	{ MODKEY,	                XK_comma,  spawn,          {.v = pvolm } },
-//	{ MODKEY,        	        XK_period, spawn,          {.v = pvolp } },
-//	{ MODKEY|ShiftMask,             XK_comma,  spawn,          {.v = volm } },
-//	{ MODKEY|ShiftMask,             XK_period, spawn,          {.v = volp } },
 
         { MODKEY, 	  		XK_BackSpace,  setgaps,        {.i = 0  } },
         { MODKEY, 	       	     XK_equal,  setgaps,        {.i = +3  } },
