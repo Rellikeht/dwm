@@ -25,7 +25,9 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { ">$", "#i", "@w", "||", "::", ">>", "+∞", "∨∧", "„”"};
+//static const char *tags[] = { ">$", "#i", "@w", "||", "::", ">>", "+∞", "∨∧", "„”"};
+static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+//static const char *tags[] = {"•1•", "•2•", "•3•", "•4•", "•5•", "•6•", "•7•", "•8•", "•9•"};
 
 /* default layout per tags */
 /* The first element is for all-tag view, following i-th element corresponds to */
@@ -41,7 +43,6 @@ static const Rule rules[] = {
 //	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 //	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 //	{ "mpv",  NULL,       NULL,       0,       1,           -1 }
-//	{ "net-mc-main-Main", "sun-awt-X11-XFramePeer",     NULL,       0,       1,        -1 }
 };
 
 /* layout(s) */
@@ -74,7 +75,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", NULL };
-static const char *dmenuscr[] = { "ls -d ~/.dscripts/* | dmenu | sh -s", NULL };
+static const char *dmenuscr[] = { "sh", "-c", "ls -d --color=never ~/.dscripts/* | dmenu | sh -s", NULL };
 static const char *rofi[] = { "rofi", "-show", "run", NULL };
 static const char *rofic[] = { "rofi", "-show", "calc", NULL };
 static const char *termcmd[]  = { "st", NULL };
@@ -83,23 +84,19 @@ static const char *alacrt[]  = { "sh", "-c", "tabbed alacritty --embed", NULL };
 static const char *urxvtt[]  = { "sh", "-c", "tabbed urxvt -embed", NULL };
 static const char *qute[]  = { "sh", "-c", "$qutebrowser", NULL };
 static const char *pqute[]  = { "sh", "-c", "$qutebrowser -T", NULL };
-static const char *shotg[]  = { "sh", "-c", "~/.scrs/scrshg.sh", NULL };
+static const char *shotg[]  = { "sh", "~/.scrs/scrshg.sh", NULL };
 static const char *surf[]  = { "sh", "-c", "tabbed surf -e", NULL };
 
-static const char *pvolm[]  = { "sh", "-c", "pactl set-sink-volume @DEFAULT_SINK@ -5%", NULL };
-static const char *pvolp[]  = { "sh", "-c", "pactl set-sink-volume @DEFAULT_SINK@ +5%", NULL };
-static const char *volm[]  = { "sh", "-c", "amixer -c 0 -- sset Master 2dB-", NULL };
-static const char *volp[]  = { "sh", "-c", "amixer -c 0 -- sset Master 2dB+", NULL };
-//static const char *susp[]  = { "loginctl",  "suspend", NULL };
-//static const char *ssusp[]  = { "sh", "-c", "loginctl suspend && slock", NULL };
-//static const char *susp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && sleep 1 && loginctl suspend && sleep 5 && doas chvt $C && export C= N=", NULL };
-static const char *susp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && sleep 1 && loginctl suspend", NULL };
-static const char *bsusp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && sleep 1 && loginctl suspend && sleep 4 && doas chvt $C && i3lock-fancy -p && export C= N=", NULL };
-static const char *isusp[]  = { "sh", "-c", "export C=`doas fgconsole` N=`doas fgconsole -n` && doas chvt $N && sleep 1 && loginctl suspend && sleep 4 && doas chvt $C && xlock && export C= N=", NULL };
-//static const char *bsusp[]  = { "sh", "-c", "i3lock-fancy -p && loginctl suspend", NULL };
-//static const char *isusp[]  = { "xlock",  "-startCmd",  "loginctl suspend", NULL };
-static const char *xra[]  = { "sh", "-c", "xrandr --output HDMI1 --mode 1920x1080 --primary && xrandr --output LVDS1 --right-of HDMI1 && nitrogen --restore", NULL };
 static const char *scrkbd[]  = { "svkbd-mobile-intl", NULL };
+static const char *poweroff[]  = { "sh", "-c", "loginctl poweroff", NULL };
+
+//static const char *susp[]  = { "loginctl",  "suspend", NULL };
+//static const char *ssusp[]  = { "sh", "-c", "loginctl suspend -i && slock", NULL };
+//static const char *bsusp[]  = { "sh", "-c", "i3lock-fancy -p && loginctl suspend -i", NULL };
+//static const char *isusp[]  = { "xlock",  "-startCmd",  "loginctl suspend -i", NULL };
+static const char *susp[]  = { "sh", "~/.scrs/suspend1.sh", NULL };
+static const char *bsusp[]  = { "sh", "~/.scrs/suspend2.sh", NULL };
+static const char *isusp[]  = { "sh", "~/.scrs/suspend3.sh", NULL };
 
 //static const char *plumb[]  = { "sh", "-c", "xclip -o | sh -s | xmessage -file -", NULL };
 //static const char *plumbc[]  = { "sh", "-c", "xclip -o | sh -s | xclip -o | xclip -selection clipboard -i", NULL };
@@ -111,7 +108,9 @@ static const char *passt[]  = { "passmenu --type", NULL };
 static const char *scr1[]  = { "sh", "-c", "~/.scrs/scr1.sh", NULL };
 static const char *scr2[]  = { "sh", "-c", "~/.scrs/scr2.sh", NULL };
 static const char *scr3[]  = { "sh", "-c", "~/.scrs/scr3.sh", NULL };
+static const char *scr4[]  = { "sh", "-c", "~/.scrs/scr4.sh", NULL };
 static const char *mocp[]  = { "sh", "-c", "~/.scrs/mode.sh mocp", NULL };
+static const char *cmus[]  = { "sh", "-c", "~/.scrs/mode.sh cmus", NULL };
 static const char *dispm[]  = { "sh", "-c", "~/.scrs/display-maker.sh", NULL };
 static const char *qwerty[]  = { "sh", "-c", "xmodmap ~/.xmodmap/qwerty", NULL };
 static const char *workman[]  = { "sh", "-c", "xmodmap ~/.xmodmap/workman", NULL };
@@ -127,9 +126,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_slash,  spawn,          {.v = urxvtt } },
 	{ MODKEY|ControlMask,           XK_a,	   spawn,          {.v = alacrt } },
 	{ MODKEY,		 	XK_p,	   spawn,          {.v = dispm } },
-	{ MODKEY|ShiftMask,	 	XK_p,	   spawn,          {.v = xra } },
 	{ MODKEY,                       XK_q, 	   spawn,          {.v = qute } },
 	{ MODKEY|ShiftMask,             XK_q, 	   spawn,          {.v = pqute } },
+	{ MODKEY|ControlMask,           XK_q, 	   spawn,          {.v = poweroff } },
 	{ MODKEY|Mod1Mask,              XK_s, 	   spawn,          {.v = bsusp } },
 	{ MODKEY,	                XK_i,      spawn,      	{.v = workman } },
 	{ MODKEY,	             	XK_u,      spawn,      	{.v = qwerty } },
@@ -142,9 +141,11 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_s, 	   spawn,          {.v = susp } },
 	{ MODKEY|Mod1Mask|ControlMask,  XK_l, 	   spawn,          {.v = shotg} },
 	{ MODKEY,           		XK_m, 	   spawn,          {.v = mocp } },
+	{ MODKEY|ShiftMask,           	XK_m, 	   spawn,          {.v = cmus} },
 	{ MODKEY,	                XK_grave,  spawn,      	{.v = scr1} },
 	{ MODKEY|ShiftMask,	        XK_grave,  spawn,      	{.v = scr2} },
 	{ MODKEY|ControlMask,           XK_grave,  spawn,      	{.v = scr3} },
+	{ MODKEY|ShiftMask|ControlMask, XK_grave,  spawn,      	{.v = scr4} },
 	{ MODKEY,	                XK_Tab,    spawn,      	{.v = dclip } },
 	{ MODKEY|Mod1Mask,              XK_Tab,    spawn,      	{.v = clip } },
 	{ MODKEY|ShiftMask,             XK_Tab,    togglebar,      {-1} },
@@ -186,10 +187,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_bracketright, focusmon,       {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,	                XK_comma,  spawn,          {.v = pvolm } },
-	{ MODKEY,        	        XK_period, spawn,          {.v = pvolp } },
-	{ MODKEY|ShiftMask,             XK_comma,  spawn,          {.v = volm } },
-	{ MODKEY|ShiftMask,             XK_period, spawn,          {.v = volp } },
+//	{ MODKEY,	                XK_comma,  spawn,          {.v = pvolm } },
+//	{ MODKEY,        	        XK_period, spawn,          {.v = pvolp } },
+//	{ MODKEY|ShiftMask,             XK_comma,  spawn,          {.v = volm } },
+//	{ MODKEY|ShiftMask,             XK_period, spawn,          {.v = volp } },
 
         { MODKEY, 	  		XK_BackSpace,  setgaps,        {.i = 0  } },
         { MODKEY, 	       	     XK_equal,  setgaps,        {.i = +3  } },
