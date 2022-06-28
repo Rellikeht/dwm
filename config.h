@@ -71,7 +71,8 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", NULL };
+//static const char *dmenucmd[] = { "dmenu_run", NULL };
+static const char *dmenucmd[] = { "sh", "-c", "~/.dwm/drun.sh", NULL };
 static const char *dmenuscr[] = { "sh", "-c", "ls -d --color=never ~/.dscripts/* | dmenu | sh -s", NULL };
 static const char *rofi[] = { "rofi", "-show", "run", NULL };
 static const char *rofic[] = { "rofi", "-show", "calc", NULL };
