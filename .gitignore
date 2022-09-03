@@ -3,3 +3,4 @@ dwm
 *.diff
 *.swp
 *.o
+*.b
