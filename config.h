@@ -105,7 +105,7 @@ static const char *scr3[]  = { "sh", "-c", "~/.dwm/scr3.sh", NULL };
 static const char *scr4[]  = { "sh", "-c", "~/.dwm/scr4.sh", NULL };
 static const char *mocp[]  = { "sh", "-c", "~/.dwm/mode.sh mocp", NULL };
 static const char *cmus[]  = { "sh", "-c", "~/.dwm/mode.sh cmus", NULL };
-static const char *dispm[]  = { "sh", "-c", "~/.dwm/display-maker.sh", NULL };
+static const char *dispm[]  = { "sh", "-c", "~/.dwm/dispm.sh", NULL };
 static const char *qwerty[]  = { "sh", "-c", "xmodmap ~/.xmodmap/qwerty", NULL };
 static const char *workman[]  = { "sh", "-c", "xmodmap ~/.xmodmap/workman", NULL };
 
