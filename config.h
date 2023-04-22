@@ -132,7 +132,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_s, 	   spawn,          {.v = isusp } },
 	{ MODKEY|ControlMask,           XK_s, 	   spawn,          {.v = susp } },
 	{ MODKEY|Mod1Mask,              XK_s, 	   spawn,          {.v = bsusp } },
-	{ MODKEY|ControlMask,           XK_q, 	   spawn,          {.v = poweroff } },
+	{ MODKEY|ControlMask,           XK_e, 	   spawn,          {.v = poweroff } },
 
 	{ MODKEY|Mod1Mask|ControlMask,  XK_l, 	   spawn,          {.v = shotg} },
 	{ MODKEY,           		XK_m, 	   spawn,          {.v = mocp } },

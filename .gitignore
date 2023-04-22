@@ -1,6 +1,9 @@
 dwm
+
 .ccls*
 *.diff
 *.swp
 *.o
 *.b
+
+config.mk
