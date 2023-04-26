@@ -10,8 +10,20 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 
-static const char *fonts[]          = { "MesloLGS NF:pixelsize=13:antialias=true:autohint=true" };
-static const char dmenufont[]       = "MesloLGS NF:pixelsize=13:antialias=true:autohint=true";
+#ifdef __FreeBSD__
+    static const char *fonts[] = {
+	"MesloLGS:pixelsize=13:antialias=true:autohint=true" };
+    static const char dmenufont[] =
+	"MesloLGS:pixelsize=13:antialias=true:autohint=true";
+
+#else
+    static const char *fonts[] = {
+	"MesloLGS NF:pixelsize=13:antialias=true:autohint=true" };
+    static const char dmenufont[] =
+	"MesloLGS NF:pixelsize=13:antialias=true:autohint=true";
+
+#endif
+
 static const char col_gray1[]       = "#01080b"; // "#222222";
 static const char col_gray2[]       = "#02aacd"; // "#444444";
 static const char col_gray3[]       = "#086aab"; // "#bbbbbb";
