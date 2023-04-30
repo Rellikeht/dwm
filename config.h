@@ -93,8 +93,8 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *termtab[]  = { "sh", "-c", "tabbed st -w", NULL };
 static const char *alacrt[]  = { "sh", "-c", "tabbed alacritty --embed", NULL };
 static const char *urxvtt[]  = { "sh", "-c", "tabbed urxvt -embed", NULL };
-static const char *qute[]  = { "sh", "-c", "$qutebrowser", NULL };
-static const char *pqute[]  = { "sh", "-c", "$qutebrowser -T", NULL };
+static const char *qute[]  = { "sh", "-c", "qutebrowser", NULL };
+static const char *pqute[]  = { "sh", "-c", "qutebrowser -T", NULL };
 static const char *shotg[]  = { "sh", "-c", "~/.dwm/scrshg.sh", NULL };
 static const char *surf[]  = { "sh", "-c", "tabbed surf -e", NULL };
 
