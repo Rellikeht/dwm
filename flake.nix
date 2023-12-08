@@ -1,5 +1,5 @@
 {
-  description = "Rellikeht's build of suckless st";
+  description = "Rellikeht's build of suckless dwm";
 
   inputs.nixpkgs.url = github:NixOS/nixpkgs;
 
@@ -11,13 +11,12 @@
   in {
     packages.x86_64-linux.default = with import nixpkgs {system = system;};
       stdenv.mkDerivation rec {
-        name = "st";
+        name = "dwm";
         src = self;
 
         PREFIX = "$(out)";
         CC = pkgs.gcc;
         PKG_CONFIG = pkgs.pkg-config;
-        # TERMINFO = "$out/share/terminfo";
 
         nativeBuildInputs = with pkgs; [
           pkg-config
@@ -27,8 +26,7 @@
           xorg.libX11
           xorg.libXft
           xorg.libXinerama
-          freetype
-          ncurses
+          #          freetype
         ];
 
         buildPhase = "
@@ -37,9 +35,7 @@
             ";
 
         installPhase = "
-          export TERMINFO=\"$out/share/terminfo\"
           mkdir -p $out/bin
-          mkdir -p $TERMINFO
           make install
           ";
       };
