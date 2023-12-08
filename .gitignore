@@ -1,9 +1,16 @@
-dwm
-
-.ccls*
-*.diff
-*.swp
+*
+!*.*
 *.o
-*.b
+*.so
+*.swp
+*~
 
-config.mk
+#dwm
+#
+#.ccls*
+#*.diff
+#*.swp
+#*.o
+#*.b
+#
+#config.mk
