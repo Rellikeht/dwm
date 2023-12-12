@@ -4,13 +4,4 @@
 *.so
 *.swp
 *~
-
-#dwm
-#
-#.ccls*
-#*.diff
-#*.swp
-#*.o
-#*.b
-#
-#config.mk
+*.lock
