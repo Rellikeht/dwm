@@ -4,4 +4,4 @@
 *.so
 *.swp
 *~
-*.lock
+#*.lock
