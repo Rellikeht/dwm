@@ -18,7 +18,7 @@
       "armv7l-linux"
     ] (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-      name = "tabbed";
+      name = "dwm";
       src = self;
     in {
       packages.default = pkgs.stdenv.mkDerivation rec {
