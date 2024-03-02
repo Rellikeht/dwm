@@ -18,6 +18,7 @@
       "armv7l-linux"
     ] (system: let
       pkgs = nixpkgs.legacyPackages.${system};
+      lib = pkgs.lib;
       name = "dwm";
       src = self;
     in {
@@ -36,18 +37,31 @@
           xorg.libX11
           xorg.libXft
           xorg.libXinerama
-          #          freetype
+          # freetype
         ];
 
-        buildPhase = "
-            make clean
-            make
-            ";
+        buildPhase = ''
+          make clean
+          make
+        '';
 
-        installPhase = "
-          mkdir -p $out/bin
+        installPhase = let
+          # Hopefully this shit will work
+          sesDir = "$out/share/xsessions";
+        in ''
+          mkdir -p $out/bin ${sesDir}
           make install
-          ";
+          cp dwm.desktop ${sesDir}
+        '';
+
+        meta = with lib; {
+          homepage = "https://dwm.suckless.org/";
+          description = "Dynamic window manager, Rellikeht's build";
+          license = licenses.mit;
+          mainProgram = "dwm";
+          maintainers = ["Rellikeht"];
+          platforms = platforms.linux;
+        };
       };
     });
 }
