@@ -106,7 +106,7 @@ static const char *alacrt[] = {"sh", "-c", "exec tabbed alacritty --embed",
 static const char *urxvtt[] = {"sh", "-c", "exec tabbed urxvt -embed", NULL};
 static const char *qute[] = {"sh", "-c", "exec qutebrowser", NULL};
 static const char *pqute[] = {"sh", "-c", "exec qutebrowser -T", NULL};
-static const char *shotg[] = {"sh", "-c", "exec ~/.dwm/scrshg.sh", NULL};
+static const char *shotg[] = {"sh", "-c", "~/.dwm/scrshg.sh", NULL};
 static const char *surf[] = {"sh", "-c", "exec tabbed surf -e", NULL};
 
 static const char *scrkbd[] = {"svkbd-mobile-intl", NULL};
@@ -129,12 +129,12 @@ static const char *clip[] = {"sh", "-c",
 static const char *passm[] = {"passmenu", NULL};
 static const char *passt[] = {"passmenu --type", NULL};
 
-static const char *scr1[] = {"sh", "-c", "exec ~/.dwm/scr1.sh", NULL};
-static const char *scr2[] = {"sh", "-c", "exec ~/.dwm/scr2.sh", NULL};
-static const char *scr3[] = {"sh", "-c", "exec ~/.dwm/scr3.sh", NULL};
-static const char *scr4[] = {"sh", "-c", "exec ~/.dwm/scr4.sh", NULL};
-static const char *mocp[] = {"sh", "-c", "exec ~/.dwm/mode.sh mocp", NULL};
-static const char *cmus[] = {"sh", "-c", "exec ~/.dwm/mode.sh cmus", NULL};
+static const char *scr1[] = {"sh", "-c", "~/.dwm/scr1.sh", NULL};
+static const char *scr2[] = {"sh", "-c", "~/.dwm/scr2.sh", NULL};
+static const char *scr3[] = {"sh", "-c", "~/.dwm/scr3.sh", NULL};
+static const char *scr4[] = {"sh", "-c", "~/.dwm/scr4.sh", NULL};
+static const char *mocp[] = {"sh", "-c", "~/.dwm/mode.sh mocp", NULL};
+static const char *cmus[] = {"sh", "-c", "~/.dwm/mode.sh cmus", NULL};
 static const char *dispm[] = {"sh", "-c", "exec ~/.local_scrs/dispm.sh", NULL};
 static const char *qwerty[] = {"sh", "-c", "exec xmodmap ~/.xmodmap/qwerty",
                                NULL};
