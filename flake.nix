@@ -2,8 +2,8 @@
   description = "Rellikeht's build of suckless dwm";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs;
-    flake-utils.url = github:numtide/flake-utils;
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
@@ -11,12 +11,15 @@
     nixpkgs,
     flake-utils,
   }:
-    flake-utils.lib.eachSystem [
-      "x86_64-linux"
-      "i686-linux"
-      "aarch64-linux"
-      "armv7l-linux"
-    ] (system: let
+    flake-utils.lib.eachSystem
+    flake-utils.lib.allSystems
+    # [
+    #   "x86_64-linux"
+    #   "i686-linux"
+    #   "aarch64-linux"
+    #   "armv7l-linux"
+    # ]
+    (system: let
       pkgs = nixpkgs.legacyPackages.${system};
       lib = pkgs.lib;
       name = "dwm";

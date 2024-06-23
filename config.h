@@ -97,11 +97,11 @@ static const Layout layouts[] = {
          KEY,                                                  \
          toggleview,                                           \
          {.ui = 1 << TAG}},                                    \
-        {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},      \
-        {MODKEY | ControlMask | ShiftMask,                     \
-         KEY,                                                  \
-         toggletag,                                            \
-         {.ui = 1 << TAG}},
+        {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}}, {    \
+        MODKEY | ControlMask | ShiftMask, KEY, toggletag, {    \
+            .ui = 1 << TAG                                     \
+        }                                                      \
+    }
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion
  */
@@ -142,9 +142,10 @@ static const char *pqute[] = {
 static const char *shotg[] = {
     "sh", "-c", "~/.dwm/scrshg.sh", NULL
 };
-static const char *surf[] = {
-    "sh", "-c", "tabbed surf -e", NULL
-};
+
+/* static const char *surf[] = { */
+/*     "sh", "-c", "tabbed surf -e", NULL */
+/* }; */
 
 static const char *scrkbd[] = {"svkbd-mobile-intl", NULL};
 static const char *poweroff[] = {
