@@ -34,7 +34,7 @@ static const char col_gray3[] = "#086aab"; // "#bbbbbb";
 static const char col_gray4[] = "#01080b"; //"#445566";
 static const char col_cyan[] = "#02aacd";  //"#00cd48";
 static const char *colors[][3] = {
-  /*               fg         bg         border   */
+    /*               fg         bg         border   */
     [SchemeNorm] = {col_gray3, col_gray1, col_gray2},
     [SchemeSel] = {col_gray4, col_cyan,  col_gray3},
     [SchemeHid] = {col_gray1, col_gray3, col_gray2},
@@ -58,13 +58,20 @@ static int def_layouts[1 + LENGTH(tags)] = {
 };
 
 static const Rule rules[] = {
-  /* xprop(1):
-  *	WM_CLASS(STRING) = instance, class
-  *	WM_NAME(STRING) = title
-  */
-  /* class      instance    title       tags mask  isfloating
-  monitor */
-    {"Firefox", NULL, NULL, 1 << 8, 0, -1},
+    /* xprop(1):
+     *	WM_CLASS(STRING) = instance, class
+     *	WM_NAME(STRING) = title
+     */
+    /* class      instance    title       tags mask  isfloating
+    monitor */
+
+    // ???
+    // {"Firefox", NULL, NULL, 1 << 8, 0, -1},
+
+    {"zenity",         NULL, NULL,           0, 1, -1},
+    {"Xdialog",        NULL, NULL,           0, 1, -1},
+    {"yad",            NULL, NULL,           0, 1, -1},
+    {"steamwebhelper", NULL, "Friends List", 0, 1, -1},
 };
 
 /* layout(s) */
@@ -79,7 +86,7 @@ static const int attachdirection =
         */
 
 static const Layout layouts[] = {
-  /* symbol     arrange function */
+    /* symbol     arrange function */
     {"[]=", tile      }, /* first entry is default */
     {"><>", NULL
     }, /* no layout function means floating behavior */
@@ -211,8 +218,8 @@ static const char *workman[] = {
 };
 
 static Key keys[] = {
-  /* modifier                     key		function  argument
-  */
+    /* modifier                     key		function  argument
+     */
     {
      MODKEY, XK_d,
      spawn, {.v = dmenucmd},
@@ -277,11 +284,11 @@ static Key keys[] = {
      spawn, {.v = passm},
      },
 
- /* { */
-  /*  MODKEY | ControlMask, */
-  /*  XK_w, spawn, */
-  /*  {.v = scrkbd}, */
-  /*  }, */
+    /* { */
+    /*  MODKEY | ControlMask, */
+    /*  XK_w, spawn, */
+    /*  {.v = scrkbd}, */
+    /*  }, */
 
     {
      MODKEY | ShiftMask,
@@ -317,15 +324,15 @@ static Key keys[] = {
     {MODKEY | Mod1Mask | ControlMask, XK_l, spawn, {.v = shotg}
     },
 
- /* { */
-  /*  MODKEY, XK_m, */
-  /*  spawn, {.v = mocp}, */
-  /*  }, */
-  /* { */
-  /*  MODKEY | ShiftMask, */
-  /*  XK_m, spawn, */
-  /*  {.v = cmus}, */
-  /*  }, */
+    /* { */
+    /*  MODKEY, XK_m, */
+    /*  spawn, {.v = mocp}, */
+    /*  }, */
+    /* { */
+    /*  MODKEY | ShiftMask, */
+    /*  XK_m, spawn, */
+    /*  {.v = cmus}, */
+    /*  }, */
 
     {
      MODKEY, XK_grave,
@@ -541,8 +548,8 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText,
  * ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
-  /* click                event mask	    button	    function
-  argument */
+    /* click                event mask	    button	    function
+    argument */
     {ClkLtSymbol,   0,      Button1, setlayout,      {0}               },
     {ClkLtSymbol,   0,      Button3, setlayout,      {.v = &layouts[2]}},
     {ClkWinTitle,   0,      Button1, togglewin,      {0}               },
