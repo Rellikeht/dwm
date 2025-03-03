@@ -146,6 +146,7 @@ static const char *qute[] = {"sh", "-c", "qutebrowser", NULL};
 static const char *pqute[] = {
     "sh", "-c", "qutebrowser -T", NULL
 };
+static const char *squte[] = {"sh", "-c", "qutebrowsers", NULL};
 static const char *shotg[] = {
     "sh", "-c", "~/.dwm/scrshg.sh", NULL
 };
@@ -265,6 +266,11 @@ static Key keys[] = {
     {
      MODKEY, XK_q,
      spawn, {.v = qute},
+     },
+    {
+     MODKEY | ControlMask,
+     XK_q, spawn,
+     {.v = squte},
      },
     {
      MODKEY | ShiftMask,
