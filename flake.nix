@@ -25,11 +25,11 @@
       name = "dwm";
       src = self;
     in {
-      packages.default = pkgs.stdenv.mkDerivation rec {
+      packages.default = pkgs.stdenv.mkDerivation {
         inherit name system src;
 
         PREFIX = "$(out)";
-        CC = pkgs.gcc;
+        CC = pkgs.stdenv.cc;
         PKG_CONFIG = pkgs.pkg-config;
 
         nativeBuildInputs = with pkgs; [
