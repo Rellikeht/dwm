@@ -1,7 +1,12 @@
 *
 !*.*
+
 *.o
 *.so
 *.swp
 *~
-#*.lock
+
+!src/
+!Makefile
+!LICENSE
+!patches/
