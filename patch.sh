@@ -22,17 +22,11 @@ for patch in \
     dwm-attachdirection-6.2.diff \
     dwm-awesomebar-20230431-6.4.diff \
     dwm-xresources-20210827-138b405.diff \
+    dwm-focusmaster-20210804-138b405.diff \
     dwm-fixes-6.6.diff \
 
-    # togglebartag-20230421-e81f17d.diff \
-
-    # dwm-activemonitor-20230825-e81f17d.diff \
-
-    # dwm-xtile-6.2.diff \
-    # dwm-fancybar-20220527-d3f93c7.diff \
-
 do
-    echo "$patch"
+    echo "Applying $patch"
     patch -p1 <"$PATCH_DIR/$patch"
 done
 
