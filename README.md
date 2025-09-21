@@ -52,13 +52,16 @@ exec dwm
 
 Some of those was modified to fit new version of dwm or others:
 
-- activetagindicatorbar
 - smartborders
-- deck-double-smartborders
+- deck-double
 - functionalgaps+pertag
+- activetagindicatorbar
 - attachdirection
 - awesomebar
 - xresources
+- focusmaster
+- swapfocus
+- centeredwindowname
 
 ### Mine
 
