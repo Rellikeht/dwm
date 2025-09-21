@@ -13,10 +13,10 @@ diff --git a/config.def.h b/config.def.h
 index 1c0b587..d7c089b 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -35,6 +35,7 @@ static const Rule rules[] = {
- static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+@@ -35,6 +35,7 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
  static const int nmaster     = 1;    /* number of clients in master area */
  static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 +static const int attachdirection = 0;    /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
  
  static const Layout layouts[] = {
@@ -32,8 +32,8 @@ index 9fd0286..2c1b143 100644
 -#define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags]))
 +#define ISVISIBLEONTAG(C, T)    ((C->tags & T))
 +#define ISVISIBLE(C)            ISVISIBLEONTAG(C, C->mon->tagset[C->mon->seltags])
- #define LENGTH(X)               (sizeof X / sizeof X[0])
  #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
+ #define LENGTH(X)               (sizeof X / sizeof X[0])
  #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
 @@ -147,6 +148,11 @@ static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interac
  static void arrange(Monitor *m);
@@ -200,33 +200,35 @@ index 9fd0286..2c1b143 100644
  	attachstack(c);
  	focus(NULL);
  	arrange(NULL);
-@@ -1900,7 +2020,25 @@ updategeom(void)
- 					m->clients = c->next;
- 					detachstack(c);
- 					c->mon = mons;
--					attach(c);
-+					switch(attachdirection){
-+					case 1:
-+						attachabove(c);
-+						break;
-+					case 2:
-+						attachaside(c);
-+						break;
-+					case 3:
-+						attachbelow(c);
-+						break;
-+					case 4:
-+						attachbottom(c);
-+						break;
-+					case 5:
-+						attachtop(c);
-+						break;
-+					default:
-+						attach(c);
-+					}
- 					attachstack(c);
- 				}
- 				if (m == selmon)
+@@ -1900,7 +2020,25 @@ 				dirty = 1;
+				m->clients = c->next;
+				detachstack(c);
+				c->mon = mons;
+-				attach(c);
++				switch(attachdirection){
++				case 1:
++					attachabove(c);
++					break;
++				case 2:
++					attachaside(c);
++					break;
++				case 3:
++					attachbelow(c);
++					break;
++				case 4:
++					attachbottom(c);
++					break;
++				case 5:
++					attachtop(c);
++					break;
++				default:
++					attach(c);
++				}
+				attachstack(c);
+			}
+			if (m == selmon)
+				selmon = mons;
+
 -- 
 2.26.2
 
