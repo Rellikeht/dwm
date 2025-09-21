@@ -23,16 +23,16 @@ index 061ad66..05f18e5 100644
  	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
  	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
  	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-@@ -84,6 +87,9 @@ static const Key keys[] = {
+@@ -84,6 +87,9 @@ { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
  	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
  	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
  	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 +	{ MODKEY,                       XK_s,      show,           {0} },
 +	{ MODKEY|ShiftMask,             XK_s,      showall,        {0} },
 +	{ MODKEY,                       XK_h,      hide,           {0} },
- 	TAGKEYS(                        XK_1,                      0)
- 	TAGKEYS(                        XK_2,                      1)
- 	TAGKEYS(                        XK_3,                      2)
+ 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
+ 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
+ 	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
 @@ -102,6 +108,7 @@ static const Button buttons[] = {
  	/* click                event mask      button          function        argument */
  	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
@@ -45,14 +45,14 @@ diff --git a/dwm.c b/dwm.c
 index e5efb6a..0d18e1b 100644
 --- a/dwm.c
 +++ b/dwm.c
-@@ -50,6 +50,7 @@
- #define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->wx+(m)->ww) - MAX((x),(m)->wx)) \
+@@ -50,6 +50,7 @@ #define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->wx+(m)->ww) - MAX((x),(m)->wx)) \
                                 * MAX(0, MIN((y)+(h),(m)->wy+(m)->wh) - MAX((y),(m)->wy)))
- #define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags]))
+ #define ISVISIBLEONTAG(C, T)    ((C->tags & T))
+ #define ISVISIBLE(C)            ISVISIBLEONTAG(C, C->mon->tagset[C->mon->seltags])
 +#define HIDDEN(C)               ((getstate(C->win) == IconicState))
- #define LENGTH(X)               (sizeof X / sizeof X[0])
  #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
  #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
+ #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
 @@ -59,7 +60,7 @@
  
  /* enums */

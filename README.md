@@ -50,14 +50,14 @@ exec dwm
 
 ### In original form
 
-- functionalgaps+pertag
 - activetagindicatorbar
-- activemonitor
-- deck-double-smartborders
 
 ### Modified
 
-Accomodated for new version and to be applied after others:
+Slightly adjusted to work with others and new version:
+- smartborders
+- deck-double-smartborders
+- functionalgaps+pertag
 - attachdirection
+- awesomebar
 - fancybar
-- xresources

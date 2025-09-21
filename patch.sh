@@ -15,20 +15,23 @@ cd "$PATCHED"
 # dwm-pertag_with_sel-20231003-9f88553.diff \
 
 for patch in \
+    dwm-smartborders-6.2.diff \
+    dwm-deck-double-smartborders-6.2.diff \
     dwm-functionalgaps+pertag-6.2.diff \
     dwm-activetagindicatorbar-6.2.diff \
-    dwm-activemonitor-20230825-e81f17d.diff \
     dwm-attachdirection-6.2.diff \
-    # dwm-deck-double-smartborders-6.2.diff \
-    # dwm-fancybar-20220527-d3f93c7.diff \
-    # dwm-xresources-20210827-138b405.diff \
-
-    # dwm-awesomebar-20230431-6.4.diff \
-    # dwm-xtile-6.2.diff \
+    dwm-awesomebar-20230431-6.4.diff \
 
     # togglebartag-20230421-e81f17d.diff \
 
+    # dwm-activemonitor-20230825-e81f17d.diff \
+    # dwm-xresources-20210827-138b405.diff \
+    # dwm-xtile-6.2.diff \
+
+    # dwm-fancybar-20220527-d3f93c7.diff \
+
 do
+    echo "$patch"
     patch -p1 <"$PATCH_DIR/$patch"
 done
 

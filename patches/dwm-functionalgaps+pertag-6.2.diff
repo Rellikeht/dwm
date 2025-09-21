@@ -135,11 +135,11 @@ diff -pu dwm.git/dwm.c dwm.functionalgapspertag/dwm.c
  	arrange(selmon);
  }
  
-@@ -1113,7 +1159,10 @@ monocle(Monitor *m)
+@@ -1113,7 +1159,10 @@ n++;
  	if (n > 0) /* override layout symbol */
  		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
  	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
--		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+-		resize(c, m->wx, m->wy, m->ww, m->wh, 0, 0);
 +		if (selmon->pertag->drawwithgaps[selmon->pertag->curtag])
 +			resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
 +		else
@@ -147,10 +147,10 @@ diff -pu dwm.git/dwm.c dwm.functionalgapspertag/dwm.c
  }
  
  void
-@@ -1283,6 +1332,15 @@ resizeclient(Client *c, int x, int y, in
+@@ -1283,6 +1332,15 @@ c->oldy = c->y; c->y = wc.y = y;
  	c->oldw = c->w; c->w = wc.width = w;
  	c->oldh = c->h; c->h = wc.height = h;
- 	wc.border_width = c->bw;
+	c->oldbw = c->bw; c->bw = wc.border_width = bw;
 +	if (!selmon->pertag->drawwithgaps[selmon->pertag->curtag] && /* this is the noborderfloatingfix patch, slightly modified so that it will work if, and only if, gaps are disabled. */
 +	    (((nexttiled(c->mon->clients) == c && !nexttiled(c->next)) /* these two first lines are the only ones changed. if you are manually patching and have noborder installed already, just change these lines; or conversely, just remove this section if the noborder patch is not desired;) */
 +	    || &monocle == c->mon->lt[c->mon->sellt]->arrange))
@@ -210,11 +210,15 @@ diff -pu dwm.git/dwm.c dwm.functionalgapspertag/dwm.c
  	arrange(selmon);
  }
  
-@@ -1680,29 +1761,48 @@ tile(Monitor *m)
+@@ -1680,33 +1761,52 @@ tile(Monitor *m)
  	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
  	if (n == 0)
  		return;
 -
+-	if (n == 1)
+-		bw = 0;
+-	else
+-		bw = borderpx;
 -	if (n > m->nmaster)
 -		mw = m->nmaster ? m->ww * m->mfact : 0;
 -	else
@@ -222,16 +226,20 @@ diff -pu dwm.git/dwm.c dwm.functionalgapspertag/dwm.c
 -	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 -		if (i < m->nmaster) {
 -			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
--			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
+-			resize(c, m->wx, m->wy + my, mw - 2*bw, h - 2*bw, bw, 0);
 -			if (my + HEIGHT(c) < m->wh)
 -				my += HEIGHT(c);
 -		} else {
 -			h = (m->wh - ty) / (n - i);
--			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
+-			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - 2*bw, h - 2*bw, bw, 0);
 -			if (ty + HEIGHT(c) < m->wh)
 -				ty += HEIGHT(c);
 -		}
 +	if (m->pertag->drawwithgaps[m->pertag->curtag]) { /* draw with fullgaps logic */
++		if (n == 1)
++			bw = 0;
++		else
++			bw = borderpx;
 +	        if (n > m->nmaster)
 +	                mw = m->nmaster ? m->ww * m->mfact : 0;
 +	        else

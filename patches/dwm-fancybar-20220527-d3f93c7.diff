@@ -1,11 +1,11 @@
 diff --git a/dwm.c b/dwm.c
 --- a/dwm.c
 +++ b/dwm.c
-@@ -699,10 +699,10 @@ dirtomon(int dir)
+@@ -699,10 +699,10 @@
  void
  drawbar(Monitor *m)
  {
--	int x, w, tw = 0;
+-	int x, w, tw = 0, n = 0, scm;
 +	int x, w, tw = 0, mw, ew = 0;
  	int boxs = drw->fonts->h / 9;
  	int boxw = drw->fonts->h / 6 + 2;
@@ -14,16 +14,7 @@ diff --git a/dwm.c b/dwm.c
  	Client *c;
  
  	if (!m->showbar)
-@@ -716,6 +716,8 @@ drawbar(Monitor *m)
- 	}
- 
- 	for (c = m->clients; c; c = c->next) {
-+		if (ISVISIBLE(c))
-+			n++;
- 		occ |= c->tags;
- 		if (c->isurgent)
- 			urg |= c->tags;
-@@ -736,15 +738,39 @@ drawbar(Monitor *m)
+@@ -736,15 +738,39 @@ drw_setscheme(drw, scheme[SchemeNorm]);
  	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
  
  	if ((w = m->ww - tw - x) > bh) {

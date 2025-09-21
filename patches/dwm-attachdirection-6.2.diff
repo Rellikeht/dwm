@@ -13,14 +13,14 @@ diff --git a/config.def.h b/config.def.h
 index 1c0b587..d7c089b 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -35,6 +35,7 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+@@ -35,6 +35,7 @@ /* layout(s) */
+ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
  static const int nmaster     = 1;    /* number of clients in master area */
  static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
- static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 +static const int attachdirection = 0;    /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
+ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
  
  static const Layout layouts[] = {
- 	/* symbol     arrange function */
 diff --git a/dwm.c b/dwm.c
 index 9fd0286..2c1b143 100644
 --- a/dwm.c
@@ -33,8 +33,8 @@ index 9fd0286..2c1b143 100644
 +#define ISVISIBLEONTAG(C, T)    ((C->tags & T))
 +#define ISVISIBLE(C)            ISVISIBLEONTAG(C, C->mon->tagset[C->mon->seltags])
  #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
- #define LENGTH(X)               (sizeof X / sizeof X[0])
  #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
+ #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
 @@ -147,6 +148,11 @@ static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interac
  static void arrange(Monitor *m);
  static void arrangemon(Monitor *m);
@@ -200,7 +200,7 @@ index 9fd0286..2c1b143 100644
  	attachstack(c);
  	focus(NULL);
  	arrange(NULL);
-@@ -1900,7 +2020,25 @@ 				dirty = 1;
+@@ -1900,7 +2020,25 @@ updategeom(void)
 				m->clients = c->next;
 				detachstack(c);
 				c->mon = mons;
