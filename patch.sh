@@ -24,7 +24,7 @@ for patch in \
     dwm-xresources-20210827-138b405.diff \
     dwm-focusmaster-20210804-138b405.diff \
     dwm-swapfocus-20160731-56a31dc.diff \
-    dwm-centeredwindowname-20200723-f035e1e.diff \
+    dwm-centeredwindowname.diff \
     dwm-fixes-6.6.diff \
 
 do
