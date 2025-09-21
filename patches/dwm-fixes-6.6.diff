@@ -1,0 +1,64 @@
+diff -up original/dwm.c patched/dwm.c
+--- original/dwm.c	2025-09-21 15:10:25.703117632 +0200
++++ patched/dwm.c	2025-09-21 15:21:29.749005457 +0200
+@@ -884,7 +884,6 @@ void
+ drawbar(Monitor *m)
+ {
+ 	int x, w, tw = 0, n = 0, scm;
+-	int boxs = drw->fonts->h / 9;
+ 	int boxw = drw->fonts->h / 6 + 2;
+ 	unsigned int i, occ = 0, urg = 0;
+ 	Client *c;
+@@ -1419,9 +1418,9 @@ monocle(Monitor *m)
+ 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+ 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+ 		if (selmon->pertag->drawwithgaps[selmon->pertag->curtag])
+-			resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
++			resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0, 0);
+ 		else
+-			resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, False);
++			resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, 0, False);
+ }
+ 
+ void
+@@ -2108,12 +2107,12 @@ tile(Monitor *m)
+ 	        for (i = 0, my = ty = m->pertag->gappx[m->pertag->curtag], c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+ 	                if (i < m->nmaster) {
+ 	                        h = (m->wh - my) / (MIN(n, m->nmaster) - i) - m->pertag->gappx[m->pertag->curtag];
+-	                        resize(c, m->wx + m->pertag->gappx[m->pertag->curtag], m->wy + my, mw - (2*c->bw) - m->pertag->gappx[m->pertag->curtag], h - (2*c->bw), 0);
++	                        resize(c, m->wx + m->pertag->gappx[m->pertag->curtag], m->wy + my, mw - (2*c->bw) - m->pertag->gappx[m->pertag->curtag], h - (2*c->bw), bw, 0);
+ 	                        if (my + HEIGHT(c) + m->pertag->gappx[m->pertag->curtag] < m->wh)
+ 	                                my += HEIGHT(c) + m->pertag->gappx[m->pertag->curtag];
+ 	                } else {
+ 	                        h = (m->wh - ty) / (n - i) - m->pertag->gappx[m->pertag->curtag];
+-	                        resize(c, m->wx + mw + m->pertag->gappx[m->pertag->curtag], m->wy + ty, m->ww - mw - (2*c->bw) - 2*m->pertag->gappx[m->pertag->curtag], h - (2*c->bw), 0);
++	                        resize(c, m->wx + mw + m->pertag->gappx[m->pertag->curtag], m->wy + ty, m->ww - mw - (2*c->bw) - 2*m->pertag->gappx[m->pertag->curtag], h - (2*c->bw), bw, 0);
+ 	                        if (ty + HEIGHT(c) + m->pertag->gappx[m->pertag->curtag] < m->wh)
+ 	                                ty += HEIGHT(c) + m->pertag->gappx[m->pertag->curtag];
+ 	                }
+@@ -2126,13 +2125,13 @@ tile(Monitor *m)
+ 	                if (i < m->nmaster) {
+ 	                        h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+ 	                        if (n == 1)
+-	                                resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, False);
++	                                resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, 0, False);
+ 	                        else
+-	                                resize(c, m->wx - c->bw, m->wy + my, mw - c->bw, h - c->bw, False);
++	                                resize(c, m->wx - c->bw, m->wy + my, mw - c->bw, h - c->bw, 0, False);
+ 	                        my += HEIGHT(c) - c->bw;
+ 	                } else {
+ 	                        h = (m->wh - ty) / (n - i);
+-	                        resize(c, m->wx + mw - c->bw, m->wy + ty, m->ww - mw, h - c->bw, False);
++	                        resize(c, m->wx + mw - c->bw, m->wy + ty, m->ww - mw, h - c->bw, 0, False);
+ 	                        ty += HEIGHT(c) - c->bw;
+ 	                }
+ 	}
+@@ -2157,7 +2156,7 @@ togglefloating(const Arg *arg)
+ 	selmon->sel->isfloating = !selmon->sel->isfloating || selmon->sel->isfixed;
+ 	if (selmon->sel->isfloating)
+ 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
+-			selmon->sel->w, selmon->sel->h, 0);
++			selmon->sel->w, selmon->sel->h, 0, 0);
+ 	arrange(selmon);
+ }
+ 

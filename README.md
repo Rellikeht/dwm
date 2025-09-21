@@ -62,4 +62,4 @@ Some of those was modified to fit new version of dwm or others:
 
 ### Mine
 
-- resize-fix
+- fixes - fixes after all previous patches to make this compile and work
