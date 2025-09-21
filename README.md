@@ -48,16 +48,18 @@ exec dwm
 
 ## Applied patches
 
-### In original form
+### Community
+
+Some of those was modified to fit new version of dwm or others:
 
 - activetagindicatorbar
-
-### Modified
-
-Slightly adjusted to work with others and new version:
 - smartborders
 - deck-double-smartborders
 - functionalgaps+pertag
 - attachdirection
 - awesomebar
-- fancybar
+- xresources
+
+### Mine
+
+- resize-fix

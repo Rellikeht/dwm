@@ -56,7 +56,7 @@ index f1d86b2..2da996f 100644
  	updatebarpos(selmon);
  	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
  	arrange(selmon);
-@@ -1842,7 +1853,7 @@ updatebarpos(Monitor *m)
+@@ -1842,7 +1844,7 @@ updatebarpos(Monitor *m)
  {
  	m->wy = m->my;
  	m->wh = m->mh;

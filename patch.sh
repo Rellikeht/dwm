@@ -21,13 +21,14 @@ for patch in \
     dwm-activetagindicatorbar-6.2.diff \
     dwm-attachdirection-6.2.diff \
     dwm-awesomebar-20230431-6.4.diff \
+    dwm-xresources-20210827-138b405.diff \
+    # dwm-resize-fix-6.6.diff \
 
     # togglebartag-20230421-e81f17d.diff \
 
     # dwm-activemonitor-20230825-e81f17d.diff \
-    # dwm-xresources-20210827-138b405.diff \
-    # dwm-xtile-6.2.diff \
 
+    # dwm-xtile-6.2.diff \
     # dwm-fancybar-20220527-d3f93c7.diff \
 
 do

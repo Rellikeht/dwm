@@ -59,7 +59,7 @@ diff --git a/dwm.c b/dwm.c
 index a2943af..e43fbad 100644
 --- a/dwm.c
 +++ b/dwm.c
-@@ -47,15 +47,20 @@
+@@ -42,15 +42,20 @@
  /* macros */
  #define BUTTONMASK              (ButtonPressMask|ButtonReleaseMask)
  #define CLEANMASK(mask)         (mask & ~(numlockmask|LockMask) & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
@@ -69,7 +69,7 @@ index a2943af..e43fbad 100644
                                 * MAX(0, MIN((y)+(h),(m)->wy+(m)->wh) - MAX((y),(m)->wy)))
 +#define ISINC(X)                ((X) > 1000 && (X) < 3000)
  #define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags]))
- #define LENGTH(X)               (sizeof X / sizeof X[0])
+ #define HIDDEN(C)               ((getstate(C->win) == IconicState))
 +#define MOD(N,M)                ((N)%(M) < 0 ? (N)%(M) + (M) : (N)%(M))
  #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
  #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
@@ -108,7 +108,7 @@ index a2943af..e43fbad 100644
  	int nmaster;
  	int num;
  	int by;               /* bar geometry */
-@@ -200,10 +210,11 @@ static void scan(void);
+@@ -200,11 +210,12 @@ static void scan(void);
  static int sendevent(Client *c, Atom proto);
  static void sendmon(Client *c, Monitor *m);
  static void setclientstate(Client *c, long state);
@@ -116,11 +116,12 @@ index a2943af..e43fbad 100644
 +static void setfacts(const Arg *arg);
  static void setfocus(Client *c);
  static void setfullscreen(Client *c, int fullscreen);
+ static void setgaps(const Arg *arg);
  static void setlayout(const Arg *arg);
 -static void setmfact(const Arg *arg);
  static void setup(void);
  static void seturgent(Client *c, int urg);
- static void showhide(Client *c);
+ static void show(const Arg *arg);
 @@ -277,7 +288,7 @@ static Window root, wmcheckwin;
  struct Pertag {
  	unsigned int curtag, prevtag; /* current and previous tag */
@@ -234,11 +235,11 @@ index a2943af..e43fbad 100644
  void
  tile(Monitor *m)
  {
--	unsigned int i, n, h, mw, my, ty;
+-	unsigned int i, n, h, mw, my, ty, bw;
  	Client *c;
  
 +	Area *ga = m->pertag->areas[m->pertag->curtag], *ma = ga + 1, *sa = ga + 2, *a;
-+	unsigned int n, i, w, h, ms, ss;
++	unsigned int n, i, w, h, ms, bw, ss;
 +	float f;
 + 
 +	/* print layout symbols */
