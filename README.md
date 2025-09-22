@@ -55,6 +55,7 @@ Some of those was modified to fit new version of dwm or others:
 - smartborders
 - deck-double
 - functionalgaps+pertag
+- taglayouts
 - activetagindicatorbar
 - attachdirection
 - awesomebar
@@ -66,3 +67,5 @@ Some of those was modified to fit new version of dwm or others:
 ### Mine
 
 - fixes - fixes after all previous patches to make this compile and work
+- additions:
+  * loading Xresources at runtime

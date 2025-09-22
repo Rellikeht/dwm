@@ -1,16 +1,6 @@
 diff -up original/dwm.c patched/dwm.c
 --- original/dwm.c	2025-09-21 15:10:25.703117632 +0200
 +++ patched/dwm.c	2025-09-21 15:21:29.749005457 +0200
-@@ -275,7 +275,8 @@ static int xerrorstart(Display *dpy, XErrorEvent *ee);
- static void zoom(const Arg *arg);
- static void load_xresources(void);
- static void resource_load(XrmDatabase db, char *name, enum resource_type rtype, void *dst);
--
-+
-+static void reload_xres(const Arg *arg);
- static void focusmaster(const Arg *arg);
- 
- /* variables */
 @@ -884,7 +884,6 @@ void
  drawbar(Monitor *m)
  {
@@ -72,16 +62,3 @@ diff -up original/dwm.c patched/dwm.c
  	arrange(selmon);
  }
  
-@@ -2709,7 +2709,11 @@ load_xresources(void)
- 		resource_load(db, p->name, p->type, p->dst);
- 	XCloseDisplay(display);
- }
--
-+
-+void reload_xres(const Arg* arg) {
-+	load_xresources();
-+}
-+
- int
- main(int argc, char *argv[])
- {
