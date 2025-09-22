@@ -18,6 +18,7 @@ for patch in \
     dwm-smartborders-6.2.diff \
     dwm-deck-double-smartborders-6.2.diff \
     dwm-functionalgaps+pertag-6.2.diff \
+    dwm-taglayouts-6.4.diff \
     dwm-activetagindicatorbar-6.2.diff \
     dwm-attachdirection-6.2.diff \
     dwm-awesomebar-20230431-6.4.diff \
