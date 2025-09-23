@@ -82,20 +82,23 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/usr/bin/env", "sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-// static char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
-// static char *termcmd[]  = { "st", NULL };
-static char *dmenucmd[] = { "sh", "-c", "exec dmenu_run -F", NULL };
-static char *alt_dmenucmd[] = { "sh", "-c", "exec dmenu_run", NULL };
-static char *alt_runner[] = { "sh", "-c", "exec rofi -show run -matching fuzzy", NULL };
-static char *termcmd[]  = { "sh", "-c", "exec st", NULL };
-static char *tab_termcmd[]  = { "sh", "-c", "exec tabbed st -w", NULL };
-// TODO
-// more scripted way
-// password manager script
-// monitors management script
-// suspend script
-// screenshots
+#define LOCAL_DIR(name) "$HOME/.local/dwm/scripts/"name
+#define LOCAL_DSCR(name, cmd) "if [ -x " LOCAL_DIR(name) " ]; then " LOCAL_DIR(name) " ; else " cmd " ; fi"
+static char *dmenucmd[] = { "sh", "-c", LOCAL_DSCR("dmenucmd.sh", "exec dmenu_run -F"), NULL };
+static char *dmenucmd_alt[] = { "sh", "-c", LOCAL_DSCR("dmenucmd_alt.sh", "exec dmenu_run"), NULL };
+static char *alt_runner[] = { "sh", "-c", LOCAL_DSCR("alt_runner.sh", "exec rofi -show run -matching fuzzy"), NULL };
+static char *termcmd[]  = { "sh", "-c", LOCAL_DSCR("termcmd.sh", "exec tabbed st -w"), NULL };
+static char *termcmd_alt[]  = { "sh", "-c", LOCAL_DSCR("termcmd_alt.sh", "exec st"), NULL };
+static char *suspend[]  = { "sh", "-c", LOCAL_DSCR("suspend.sh", ""), NULL };
+static char *suspend_alt[]  = { "sh", "-c", LOCAL_DSCR("suspend_alt.sh", ""), NULL };
+static char *pass_man[]  = { "sh", "-c", LOCAL_DSCR("pass_man.sh", "passmenu"), NULL };
+static char *pass_man_alt[]  = { "sh", "-c", LOCAL_DSCR("pass_man_alt.sh", "passmenu-otp"), NULL };
+static char *mon_man[]  = { "sh", "-c", LOCAL_DSCR("mon_man.sh", ""), NULL };
+static char *mon_man_alt[]  = { "sh", "-c", LOCAL_DSCR("mon_man_alt.sh", ""), NULL };
+static char *screenshot[]  = { "sh", "-c", LOCAL_DSCR("screenshot.sh", ""), NULL };
+static char *screenshot_alt[]  = { "sh", "-c", LOCAL_DSCR("screenshot_alt.sh", ""), NULL };
+static char *user_cmd1[]  = { "sh", "-c", LOCAL_DSCR("user_cmd1.sh", ""), NULL };
+static char *user_cmd2[]  = { "sh", "-c", LOCAL_DSCR("user_cmd2.sh", ""), NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -127,15 +130,23 @@ ResourcePref resources[] = {
 static const Key keys[] = {
 	/* modifier                     key             function          argument */
 	{ MODKEY,                       XK_d,           spawn,            {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_d,           spawn,            {.v = alt_dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_d,           spawn,            {.v = dmenucmd_alt } },
 	{ MODKEY,                       XK_g,           spawn,            {.v = alt_runner } },
-	{ MODKEY,                       XK_Return,      spawn,            {.v = tab_termcmd } },
-	{ MODKEY|ShiftMask,             XK_Return,      spawn,            {.v = termcmd } },
+	{ MODKEY,                       XK_Return,      spawn,            {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return,      spawn,            {.v = termcmd_alt } },
+	{ MODKEY|ShiftMask,             XK_s,           spawn,            {.v = suspend } },
+	{ MODKEY|ControlMask,           XK_s,           spawn,            {.v = suspend_alt } },
+	{ MODKEY,                       XK_w,           spawn,            {.v = pass_man } },
+	{ MODKEY|ShiftMask,             XK_w,           spawn,            {.v = pass_man_alt } },
+	{ MODKEY,                       XK_m,           spawn,            {.v = mon_man } },
+	{ MODKEY|ShiftMask,             XK_m,           spawn,            {.v = mon_man_alt } },
+	{ MODKEY,                       XK_r,           spawn,            {.v = user_cmd1 } },
+	{ MODKEY|ShiftMask,             XK_r,           spawn,            {.v = user_cmd2 } },
+  // TODO screenshot
 
 	{ MODKEY|ShiftMask,             XK_space,       togglefloating,   {0} },
 	{ MODKEY|ShiftMask,             XK_Tab,         togglebar,        {0} },
 
-	{ MODKEY,                       XK_r,           reload_xres,      {0} },
 	{ MODKEY,                       XK_c,           killclient,       {0} },
 	{ MODKEY|ShiftMask,             XK_e,           quit,             {0} },
 
@@ -158,6 +169,7 @@ static const Key keys[] = {
 	{ MODKEY|Mod1Mask,              XK_j,           incnmaster,       {.i = -1 } },
 
 	{ MODKEY,                       XK_z,           zoom,             {0} },
+	{ MODKEY|ShiftMask,             XK_z,           reload_xres,      {0} },
   { MODKEY,                       XK_grave,       swapfocus,        {0} },
   { MODKEY|Mod1Mask,              XK_grave,       swapmon,          {0} },
 	{ MODKEY|ControlMask,           XK_space,       focusmaster,      {0} },

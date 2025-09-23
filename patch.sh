@@ -13,8 +13,6 @@ rm -fr "${PATCHED:?}"/*
 cp -r "$SRC"/* "$PATCHED"
 cd "$PATCHED"
 
-# dwm-pertag_with_sel-20231003-9f88553.diff \
-
 for patch in \
     dwm-smartborders-6.2.diff \
     dwm-deck-double-smartborders-6.2.diff \
@@ -30,8 +28,6 @@ for patch in \
     dwm-swapmonitors-20250509-4cd2832.diff \
     dwm-fixes-6.6.diff \
     dwm-additions-6.6.diff \
-
-    # prints.diff \
 
 do
     echo "Applying $patch"

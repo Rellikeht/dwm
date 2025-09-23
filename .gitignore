@@ -9,8 +9,9 @@
 *bck*
 *.rej
 *.orig
-original
-patched
+original/
+patched/
+result/
 
 !Makefile
 !LICENSE
