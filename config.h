@@ -83,7 +83,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 /* commands */
-#define LOCAL_DIR(name) "$HOME/.local/dwm/"name
+#define LOCAL_DIR(name) "$HOME/.local/dwm/" name
 #define LOCAL_DSCR(name, cmd) "if [ -x " LOCAL_DIR(name) " ]; then " LOCAL_DIR(name) " ; else " cmd " ; fi"
 static char *dmenucmd[] = { "sh", "-c", LOCAL_DSCR("dmenucmd.sh", "exec dmenu_run -F"), NULL };
 static char *dmenucmd_alt[] = { "sh", "-c", LOCAL_DSCR("dmenucmd_alt.sh", "exec dmenu_run"), NULL };
@@ -155,7 +155,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,           spawn,            {.v = user_cmd2 } },
   // TODO screenshot
 
-	{ MODKEY|ShiftMask,             XK_space,       togglefloating,   {0} },
+	{ MODKEY|ControlMask,           XK_space,       togglefloating,   {0} },
 	{ MODKEY|ShiftMask,             XK_Tab,         togglebar,        {0} },
 
 	{ MODKEY,                       XK_c,           killclient,       {0} },
@@ -181,9 +181,11 @@ static const Key keys[] = {
 
 	{ MODKEY,                       XK_z,           zoom,             {0} },
 	{ MODKEY|ShiftMask,             XK_z,           reload_xres,      {0} },
-  { MODKEY,                       XK_grave,       swapfocus,        {0} },
-  { MODKEY|Mod1Mask,              XK_grave,       swapmon,          {0} },
-	{ MODKEY|ControlMask,           XK_space,       focusmaster,      {0} },
+  { MODKEY,                       XK_space,       swapfocus,        {0} },
+	{ MODKEY|ShiftMask,             XK_space,       focusmaster,      {0} },
+  // TODO implement direction for swapmon
+  { MODKEY|Mod1Mask,              XK_comma,       swapmon,          {.i = -1} },
+  { MODKEY|Mod1Mask,              XK_period,      swapmon,          {.i = +1} },
 
 	{ MODKEY,                       XK_v,           hidtoggle,        {0} },
 	{ MODKEY|ControlMask,           XK_v,           showall,          {0} },
@@ -224,6 +226,10 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
+	{ ClkWinTitle,          0,              Button4,        focusstackvis,  {.i = -1} },
+	{ ClkWinTitle,          0,              Button5,        focusstackvis,  {.i = +1} },
+	{ ClkWinTitle,          ShiftMask,      Button4,        focusstackhid,  {.i = -1} },
+	{ ClkWinTitle,          ShiftMask,      Button5,        focusstackhid,  {.i = +1} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
