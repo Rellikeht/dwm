@@ -84,22 +84,23 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 
 /* commands */
 #define LOCAL_DIR(name) "$HOME/.local/dwm/" name
-#define LOCAL_DSCR(name, cmd) "if [ -x " LOCAL_DIR(name) " ]; then " LOCAL_DIR(name) " ; else " cmd " ; fi"
+#define LOCAL_DSCR(name, cmd) "if [ -x \"" LOCAL_DIR(name) "\" ]; then \"" LOCAL_DIR(name) "\" ; else " cmd " ; fi"
+#define EMPTY_CMD "true"
 static char *dmenucmd[] = { "sh", "-c", LOCAL_DSCR("dmenucmd.sh", "exec dmenu_run -F"), NULL };
 static char *dmenucmd_alt[] = { "sh", "-c", LOCAL_DSCR("dmenucmd_alt.sh", "exec dmenu_run"), NULL };
 static char *alt_runner[] = { "sh", "-c", LOCAL_DSCR("alt_runner.sh", "exec rofi -show run -matching fuzzy"), NULL };
 static char *termcmd[]  = { "sh", "-c", LOCAL_DSCR("termcmd.sh", "exec tabbed st -w"), NULL };
 static char *termcmd_alt[]  = { "sh", "-c", LOCAL_DSCR("termcmd_alt.sh", "exec st"), NULL };
-static char *suspend[]  = { "sh", "-c", LOCAL_DSCR("suspend.sh", ""), NULL };
-static char *suspend_alt[]  = { "sh", "-c", LOCAL_DSCR("suspend_alt.sh", ""), NULL };
+static char *suspend[]  = { "sh", "-c", LOCAL_DSCR("suspend.sh", EMPTY_CMD), NULL };
+static char *suspend_alt[]  = { "sh", "-c", LOCAL_DSCR("suspend_alt.sh", EMPTY_CMD), NULL };
 static char *pass_man[]  = { "sh", "-c", LOCAL_DSCR("pass_man.sh", "passmenu"), NULL };
 static char *pass_man_alt[]  = { "sh", "-c", LOCAL_DSCR("pass_man_alt.sh", "passmenu-otp"), NULL };
-static char *mon_man[]  = { "sh", "-c", LOCAL_DSCR("mon_man.sh", ""), NULL };
-static char *mon_man_alt[]  = { "sh", "-c", LOCAL_DSCR("mon_man_alt.sh", ""), NULL };
-static char *screenshot[]  = { "sh", "-c", LOCAL_DSCR("screenshot.sh", ""), NULL };
-static char *screenshot_alt[]  = { "sh", "-c", LOCAL_DSCR("screenshot_alt.sh", ""), NULL };
-static char *user_cmd1[]  = { "sh", "-c", LOCAL_DSCR("user_cmd1.sh", ""), NULL };
-static char *user_cmd2[]  = { "sh", "-c", LOCAL_DSCR("user_cmd2.sh", ""), NULL };
+static char *mon_man[]  = { "sh", "-c", LOCAL_DSCR("mon_man.sh", EMPTY_CMD), NULL };
+static char *mon_man_alt[]  = { "sh", "-c", LOCAL_DSCR("mon_man_alt.sh", EMPTY_CMD), NULL };
+static char *screenshot[]  = { "sh", "-c", LOCAL_DSCR("screenshot.sh", EMPTY_CMD), NULL };
+static char *screenshot_alt[]  = { "sh", "-c", LOCAL_DSCR("screenshot_alt.sh", EMPTY_CMD), NULL };
+static char *user_cmd1[]  = { "sh", "-c", LOCAL_DSCR("user_cmd1.sh", EMPTY_CMD), NULL };
+static char *user_cmd2[]  = { "sh", "-c", LOCAL_DSCR("user_cmd2.sh", EMPTY_CMD), NULL };
 
 /*
  * Xresources preferences to load at startup
