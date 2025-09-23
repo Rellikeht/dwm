@@ -71,3 +71,13 @@ diff -up original/dwm.c patched/dwm.c
  	arrange(selmon);
  }
  
+@@ -2245,7 +2245,8 @@ void
+ togglewin(const Arg *arg)
+ {
+ 	Client *c = (Client*)arg->v;
+-
++
++	if (!c) return;
+ 	if (c == selmon->sel) {
+ 		hidewin(c);
+ 		focus(NULL);

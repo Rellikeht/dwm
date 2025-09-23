@@ -8,8 +8,9 @@ PATCH_DIR="$SCRIPT_DIR/patches"
 SRC="$SCRIPT_DIR/src"
 PATCHED="$SCRIPT_DIR/patched"
 
-rm -fr "$PATCHED"
-cp -r "$SRC" "$PATCHED"
+mkdir -p "$PATCHED"
+rm -fr "${PATCHED:?}"/*
+cp -r "$SRC"/* "$PATCHED"
 cd "$PATCHED"
 
 # dwm-pertag_with_sel-20231003-9f88553.diff \
@@ -29,6 +30,8 @@ for patch in \
     dwm-swapmonitors-20250509-4cd2832.diff \
     dwm-fixes-6.6.diff \
     dwm-additions-6.6.diff \
+
+    # prints.diff \
 
 do
     echo "Applying $patch"

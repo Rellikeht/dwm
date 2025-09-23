@@ -160,10 +160,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_z,           zoom,             {0} },
   { MODKEY,                       XK_grave,       swapfocus,        {0} },
   { MODKEY|Mod1Mask,              XK_grave,       swapmon,          {0} },
-	{ MODKEY|Control,               XK_space,       focusmaster,      {0} },
+	{ MODKEY|ControlMask,           XK_space,       focusmaster,      {0} },
 
-	{ MODKEY,                       XK_v,           hide,             {0} },
-	{ MODKEY|ShiftMask,             XK_v,           show,             {0} },
+	{ MODKEY,                       XK_v,           hidtoggle,        {0} },
 	{ MODKEY|ControlMask,           XK_v,           showall,          {0} },
 
 	{ MODKEY,                       XK_0,           view,             {.ui = ~0 } },

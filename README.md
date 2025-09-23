@@ -55,7 +55,6 @@ Some of those was modified to fit new version of dwm or others:
 - smartborders
 - deck-double
 - functionalgaps+pertag
-- taglayouts
 - activetagindicatorbar
 - attachdirection
 - awesomebar
@@ -64,9 +63,17 @@ Some of those was modified to fit new version of dwm or others:
 - swapfocus
 - centeredwindowname
 
+Those were modified more significantly:
+- taglayouts - by default introduces uninitialized second layout by 
+  moving initialization to the end of function; this was simply removed 
+  and it works now
+
 ### Mine
 
 - fixes:
   * make resize calls correct
+  * fix segfaults on:
+    + empty bar clicked
 - additions:
   * loading Xresources at runtime
+  * toggle hidden state of window

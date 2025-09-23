@@ -1,17 +1,18 @@
 diff -up original/dwm.c patched/dwm.c
 --- original/dwm.c	2025-09-22 17:19:55.369721948 +0200
 +++ patched/dwm.c	2025-09-22 17:21:26.259383227 +0200
-@@ -275,7 +275,8 @@ static int xerrorstart(Display *dpy, XErrorEvent *ee);
+@@ -275,7 +275,9 @@ static int xerrorstart(Display *dpy, XErrorEvent *ee);
  static void zoom(const Arg *arg);
  static void load_xresources(void);
  static void resource_load(XrmDatabase db, char *name, enum resource_type rtype, void *dst);
 -
 +
 +static void reload_xres(const Arg *arg);
++static void hidtoggle(const Arg *arg);
  static void focusmaster(const Arg *arg);
  
  /* variables */
-@@ -2709,7 +2709,11 @@ load_xresources(void)
+@@ -2709,7 +2709,22 @@ load_xresources(void)
  		resource_load(db, p->name, p->type, p->dst);
  	XCloseDisplay(display);
  }
@@ -19,6 +20,17 @@ diff -up original/dwm.c patched/dwm.c
 +
 +void reload_xres(const Arg* arg) {
 +	load_xresources();
++}
++
++void
++hidtoggle(const Arg *arg)
++{
++	Client *c = selmon->sel;
++	if (!c) return;
++       if (selmon->hidsel)
++		show(NULL);
++	else
++		hide(NULL);
 +}
 +
  int
