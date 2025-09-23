@@ -9,6 +9,15 @@ diff -up original/dwm.c patched/dwm.c
  	int boxw = drw->fonts->h / 6 + 2;
  	unsigned int i, occ = 0, urg = 0;
  	Client *c;
+@@ -1084,7 +1084,7 @@
+ void
+ focusstack(int inc, int hid)
+ {
+-	Client *c = NULL, *i;
++	Client *c = NULL, *i = NULL;
+ 	// if no client selected AND exclude hidden client; if client selected but fullscreened
+ 	if ((!selmon->sel && !hid) || (selmon->sel && selmon->sel->isfullscreen && lockfullscreen))
+ 		return;
 @@ -1419,9 +1418,9 @@ monocle(Monitor *m)
  		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
  	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))

@@ -31,6 +31,7 @@
         PREFIX = "$(out)";
         CC = pkgs.stdenv.cc;
         PKG_CONFIG = pkgs.pkg-config;
+        dontStrip = true;
 
         nativeBuildInputs = with pkgs; [
           pkg-config

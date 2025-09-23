@@ -1,11 +1,5 @@
 /* See LICENSE file for copyright and license details. */
 
-// TODO:
-// check colors
-// SchemeHid
-// focusmaster
-// mouse
-
 /* appearance */
 static unsigned int borderpx  = 2;        /* border pixel of windows */
 static const int startwithgaps[]    = { 1 };	/* 1 means gaps are used by default, this can be customized for each tag */
@@ -17,14 +11,20 @@ static int topbar             = 1;        /* 0 means bottom bar */
 static char normbgcolor[]           = "#01080b";
 static char normbordercolor[]       = "#222222";
 static char normfgcolor[]           = "#086aab";
-static char selfgcolor[]            = "#124578";
-static char selbordercolor[]        = "#02aacd";
-static char selbgcolor[]            = "#04202c";
+// TODO
+// static char selfgcolor[]            = "#124578";
+// static char selbordercolor[]        = "#02aacd";
+// static char selbgcolor[]            = "#04202c";
+static char selfgcolor[]            = "#01080b";
+static char selbordercolor[]        = "#086aab";
+static char selbgcolor[]            = "#02aacd";
+// TODO
 static char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-       [SchemeHid]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+       // [SchemeHid]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+       [SchemeHid]  = { normbgcolor,  normfgcolor,  selbgcolor  },
 };
 
 #ifdef __FreeBSD__
@@ -139,10 +139,10 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_c,           killclient,       {0} },
 	{ MODKEY|ShiftMask,             XK_e,           quit,             {0} },
 
-	{ MODKEY,                       XK_h,           focusstackvis,    {.i = +1 } },
-	{ MODKEY,                       XK_l,           focusstackvis,    {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_h,           focusstackhid,    {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_l,           focusstackhid,    {.i = -1 } },
+	{ MODKEY,                       XK_h,           focusstackvis,    {.i = -1 } },
+	{ MODKEY,                       XK_l,           focusstackvis,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_h,           focusstackhid,    {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_l,           focusstackhid,    {.i = +1 } },
 
 	{ MODKEY,                       XK_j,           setmfact,         {.f = -0.05} },
 	{ MODKEY,                       XK_k,           setmfact,         {.f = +0.05} },
@@ -157,13 +157,14 @@ static const Key keys[] = {
 	{ MODKEY|Mod1Mask,              XK_k,           incnmaster,       {.i = +1 } },
 	{ MODKEY|Mod1Mask,              XK_j,           incnmaster,       {.i = -1 } },
 
-	{ MODKEY,                       XK_z,           zoom,           {0} },
-  { MODKEY,                       XK_grave,       swapfocus,      {0} },
-  { MODKEY|Mod1Mask,              XK_grave,       swapmon,        {0} },
+	{ MODKEY,                       XK_z,           zoom,             {0} },
+  { MODKEY,                       XK_grave,       swapfocus,        {0} },
+  { MODKEY|Mod1Mask,              XK_grave,       swapmon,          {0} },
+	{ MODKEY|Control,               XK_space,       focusmaster,      {0} },
 
-	{ MODKEY,                       XK_v,           show,             {0} },
+	{ MODKEY,                       XK_v,           hide,             {0} },
+	{ MODKEY|ShiftMask,             XK_v,           show,             {0} },
 	{ MODKEY|ControlMask,           XK_v,           showall,          {0} },
-	{ MODKEY|ShiftMask,             XK_v,           hide,             {0} },
 
 	{ MODKEY,                       XK_0,           view,             {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,           tag,              {.ui = ~0 } },
@@ -184,17 +185,14 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_BackSpace,   setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,             XK_BackSpace,   setgaps,        {.i = GAP_TOGGLE} },
 
-  // TODO
-
-	// { MODKEY,                       XK_Tab,         view,           {0} },
-
-	{ MODKEY,                       XK_t,           setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,           setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,           setlayout,      {.v = &layouts[2]} },
-	// { MODKEY,                       XK_r,           setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|Mod1Mask,              XK_7,           setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|Mod1Mask,              XK_8,           setlayout,      {.v = &layouts[1]} },
+	{ MODKEY|Mod1Mask,              XK_9,           setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|Mod1Mask,              XK_0,           setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,       setlayout,      {0} },
 };
 
+// TODO
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {

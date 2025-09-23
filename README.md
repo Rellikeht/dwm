@@ -66,6 +66,7 @@ Some of those was modified to fit new version of dwm or others:
 
 ### Mine
 
-- fixes - fixes after all previous patches to make this compile and work
+- fixes:
+  * make resize calls correct
 - additions:
   * loading Xresources at runtime
