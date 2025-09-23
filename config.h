@@ -80,9 +80,10 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/usr/bin/env", "sh", "-c", cmd, NULL } }
+static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 /* commands */
-#define LOCAL_DIR(name) "$HOME/.local/dwm/scripts/"name
+#define LOCAL_DIR(name) "$HOME/.local/dwm/"name
 #define LOCAL_DSCR(name, cmd) "if [ -x " LOCAL_DIR(name) " ]; then " LOCAL_DIR(name) " ; else " cmd " ; fi"
 static char *dmenucmd[] = { "sh", "-c", LOCAL_DSCR("dmenucmd.sh", "exec dmenu_run -F"), NULL };
 static char *dmenucmd_alt[] = { "sh", "-c", LOCAL_DSCR("dmenucmd_alt.sh", "exec dmenu_run"), NULL };
@@ -121,10 +122,20 @@ ResourcePref resources[] = {
 		{ "attachdirection",    INTEGER, &attachdirection },
 		{ "mfact",      	 	    FLOAT,   &mfact },
 		{ "dmenucmd",      	 	  STRING,  &dmenucmd[2] },
-		{ "alt_dmenucmd", 	 	  STRING,  &alt_dmenucmd[2] },
+		{ "dmenucmd_alt", 	 	  STRING,  &dmenucmd_alt[2] },
 		{ "alt_runner",    	 	  STRING,  &alt_runner[2] },
 		{ "termcmd",      	 	  STRING,  &termcmd[2] },
-		{ "tab_termcmd",      	STRING,  &tab_termcmd[2] },
+		{ "termcmd_alt",      	STRING,  &termcmd_alt[2] },
+		{ "suspend",      	 	  STRING,  &suspend[2] },
+		{ "suspend_alt",      	STRING,  &suspend_alt[2] },
+		{ "pass_man",      	 	  STRING,  &pass_man[2] },
+		{ "pass_man_alt",      	STRING,  &pass_man_alt[2] },
+		{ "mon_man",      	 	  STRING,  &mon_man[2] },
+		{ "mon_man_alt",      	STRING,  &mon_man_alt[2] },
+		{ "screenshot",      	 	STRING,  &screenshot[2] },
+		{ "screenshot_alt",     STRING,  &screenshot_alt[2] },
+		{ "user_cmd1",      	 	STRING,  &user_cmd1[2] },
+		{ "user_cmd2",          STRING,  &user_cmd2[2] },
 };
 
 static const Key keys[] = {
