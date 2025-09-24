@@ -50,7 +50,7 @@ exec dwm
 
 ### Community
 
-Some of those was modified to fit new version of dwm or others:
+Some of those was modified to fit new version or others:
 
 - smartborders
 - deck-double

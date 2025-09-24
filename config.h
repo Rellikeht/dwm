@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static unsigned int borderpx  = 2;        /* border pixel of windows */
+static unsigned int borderpx  = 3;        /* border pixel of windows */
 static const int startwithgaps[]    = { 1 };	/* 1 means gaps are used by default, this can be customized for each tag */
 static const unsigned int gappx[]   = { 4 };   /* default gap between windows in pixels, this can be customized for each tag */
 static unsigned int snap      = 32;       /* snap pixel */
@@ -22,19 +22,25 @@ static char selbgcolor[]            = "#02aacd";
 static char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbgcolor  },
        // [SchemeHid]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-       [SchemeHid]  = { normbgcolor,  normfgcolor,  selbgcolor  },
+       [SchemeHid]  = { normbgcolor,  normfgcolor,  selbordercolor  },
 };
 
-#ifdef __FreeBSD__
-static char fonts[] = "MesloLGS:pixelsize=13:antialias=true:autohint=true";
-static char dmenufont[] = "MesloLGS:pixelsize=13:antialias=true:autohint=true";
-#else
-static char font[] = "MesloLGS NF:pixelsize=13:antialias=true:autohint=true";
-static char dmenufont[] = "MesloLGS NF:pixelsize=13:antialias=true:autohint=true";
-#endif
-static const char *fonts[] = { font };
+static char font[] = "MesloLGS NF:size=13:antialias=true:autohint=true";
+static char dmenufont[] = "MesloLGS NF:size=13:antialias=true:autohint=true";
+static const char *fonts[] = {
+  font,
+  // All possible combinations just in case
+  "MesloLGS NF:size=13:antialias=true:autohint=true",
+  "MesloLGS Nerd FontF:size=13:antialias=true:autohint=true",
+  "MesloLGS:size=13:antialias=true:autohint=true",
+  "MesloLGS:size=13",
+  "MesloLGS NF:size=13",
+  "MesloLGS Nerd FontF:size=13",
+  "MesloLGS:size=13",
+  "monospace:size=13",
+};
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -210,14 +216,14 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_BackSpace,   setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,             XK_BackSpace,   setgaps,        {.i = GAP_TOGGLE} },
 
-	{ MODKEY|Mod1Mask,              XK_7,           setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|Mod1Mask,              XK_8,           setlayout,      {.v = &layouts[1]} },
-	{ MODKEY|Mod1Mask,              XK_9,           setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|Mod1Mask,              XK_0,           setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_space,       setlayout,      {0} },
+	{ MODKEY|Mod1Mask,              XK_6,           setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|Mod1Mask,              XK_7,           setlayout,      {.v = &layouts[1]} },
+	{ MODKEY|Mod1Mask,              XK_8,           setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|Mod1Mask,              XK_9,           setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask|ControlMask, XK_space,       setlayout,      {0} },
 };
 
-// TODO
+// TODO it could be more powerful I guess
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
