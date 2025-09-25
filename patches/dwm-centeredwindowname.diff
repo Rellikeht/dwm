@@ -11,16 +11,19 @@ diff --git a/dwm.c b/dwm.c
 index 9fd0286..42cb8dd 100644
 --- a/dwm.c
 +++ b/dwm.c
-@@ -931,7 +931,10 @@ drawbar(Monitor *m)
+@@ -731,7 +731,11 @@ drawbar(Monitor *m)
  					}
  					remainder--;
  				}
++				/* fix overflow when window name is bigger than window width */
++				int mid = (tabw - (int)TEXTW(c->name)) / 2;
++				/* make sure name will not overlap on tags even when it is very long */
++				mid = mid >= lrpad / 2 ? mid : lrpad / 2;
 -				drw_text(drw, x, 0, tabw, bh, lrpad / 2, c->name, 0);
-+				if (TEXTW(c->name) > w) /* title is bigger than the width of the title rectangle, don't center */
-+					drw_text(drw, x, 0, tabw, bh, lrpad / 2, c->name, 0);
-+				else /* center window title */
-+					drw_text(drw, x, 0, tabw, bh, (tabw - TEXTW(c->name)) / 2, c->name, 0);
++				drw_text(drw, x, 0, tabw, bh, mid, c->name, 0);
  				x += tabw;
  			}
  		} else {
+-- 
 2.27.0
+
