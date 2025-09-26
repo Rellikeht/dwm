@@ -26,6 +26,8 @@ for patch in \
     dwm-swapfocus-20160731-56a31dc.diff \
     dwm-centeredwindowname.diff \
     dwm-swapmonitors-20250509-4cd2832.diff \
+    dwm-push_no_master-6.4.diff \
+    dwm-unfloatvisible.diff \
     dwm-fixes-6.6.diff \
     dwm-additions-6.6.diff \
 

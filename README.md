@@ -62,11 +62,13 @@ Some of those was modified to fit new version or others:
 - focusmaster
 - swapfocus
 - centeredwindowname
+- push_no_master
 
 Those were modified more significantly:
 - taglayouts - by default introduces uninitialized second layout by 
   moving initialization to the end of function; this was simply removed 
   and it works now
+- unfloatvisible - moved code from separate file to `dwm.c`
 
 ### Mine
 
