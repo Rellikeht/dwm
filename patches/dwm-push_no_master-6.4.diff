@@ -30,16 +30,22 @@ index e5efb6a..660a8ac 100644
  void
  propertynotify(XEvent *e)
  {
-@@ -1246,6 +1259,37 @@ propertynotify(XEvent *e)
+@@ -1246,6 +1259,49 @@ propertynotify(XEvent *e)
  	}
  }
  
 +void
 +pushdown(const Arg *arg) {
-+	Client *sel = selmon->sel, *c;
++	Client *sel = selmon->sel, *lastmaster = nexttiled(selmon->clients), *c;
 +
-+	if(!sel || sel->isfloating || sel == nexttiled(selmon->clients))
++	if(!sel || sel->isfloating || !lastmaster || sel == lastmaster)
 +		return;
++	for (int i = 0; i < selmon->nmaster-1; i++) {
++		c = nexttiled(lastmaster->next);
++		if (!c || c == sel)
++			return;
++		lastmaster = c;
++	}
 +	if((c = nexttiled(sel->next))) {
 +		detach(sel);
 +		sel->next = c->next;
@@ -51,11 +57,17 @@ index e5efb6a..660a8ac 100644
 +
 +void
 +pushup(const Arg *arg) {
-+	Client *sel = selmon->sel, *c;
++	Client *sel = selmon->sel, *lastmaster = nexttiled(selmon->clients), *c;
 +
-+	if(!sel || sel->isfloating)
++	if(!sel || sel->isfloating || !lastmaster || sel == lastmaster)
 +		return;
-+	if((c = prevtiled(sel)) && c != nexttiled(selmon->clients)) {
++	for (int i = 0; i < selmon->nmaster-1; i++) {
++		c = nexttiled(lastmaster->next);
++		if (!c || c == sel)
++			return;
++		lastmaster = c;
++	}
++	if((c = prevtiled(sel)) && c != lastmaster) {
 +		detach(sel);
 +		sel->next = c;
 +		for(c = selmon->clients; c->next != sel->next; c = c->next);

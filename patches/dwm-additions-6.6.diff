@@ -12,6 +12,15 @@ diff -up original/dwm.c patched/dwm.c
  static void focusmaster(const Arg *arg);
  
  /* variables */
+@@ -1630,7 +1630,7 @@ setup(void)
+ 	wa.cursor = cursor[CurNormal]->cursor;
+ 	wa.event_mask = SubstructureRedirectMask|SubstructureNotifyMask
+ 		|ButtonPressMask|PointerMotionMask|EnterWindowMask
+-		|LeaveWindowMask|StructureNotifyMask|PropertyChangeMask;
++		|LeaveWindowMask|StructureNotifyMask|PropertyChangeMask|KeyPressMask;
+ 	XChangeWindowAttributes(dpy, root, CWEventMask|CWCursor, &wa);
+ 	XSelectInput(dpy, root, wa.event_mask);
+ 	grabkeys();
 @@ -2709,7 +2709,22 @@ load_xresources(void)
  		resource_load(db, p->name, p->type, p->dst);
  	XCloseDisplay(display);

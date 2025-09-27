@@ -1,6 +1,16 @@
 diff -up original/dwm.c patched/dwm.c
 --- original/dwm.c	2025-09-26 16:56:53.009663017 +0200
 +++ patched/dwm.c	2025-09-26 16:57:13.232337305 +0200
+@@ -280,7 +280,8 @@ focusmaster(const Arg *arg)
+ static void reload_xres(const Arg *arg);
+ static void hidtoggle(const Arg *arg);
+ static void focusmaster(const Arg *arg);
+-
++static void unfloatvisible(const Arg *arg);
++
+ /* variables */
+ static Client *prevclient = NULL;
+ static const char broken[] = "broken";
 @@ -2866,3 +2866,18 @@ focusmaster(const Arg *arg)
  	if (c)
  		focus(c);
