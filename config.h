@@ -27,19 +27,19 @@ static char *colors[][3] = {
        [SchemeHid]  = { normbgcolor,  normfgcolor,  selbordercolor  },
 };
 
-static char font[] = "MesloLGS NF:size=13:antialias=true:autohint=true";
-static char dmenufont[] = "MesloLGS NF:size=13:antialias=true:autohint=true";
+static char font[] = "MesloLGS NF:size=12:antialias=true:autohint=true";
+static char dmenufont[] = "MesloLGS NF:size=12:antialias=true:autohint=true";
 static const char *fonts[] = {
   font,
   // All possible combinations just in case
-  "MesloLGS NF:size=13:antialias=true:autohint=true",
-  "MesloLGS Nerd FontF:size=13:antialias=true:autohint=true",
-  "MesloLGS:size=13:antialias=true:autohint=true",
-  "MesloLGS:size=13",
-  "MesloLGS NF:size=13",
-  "MesloLGS Nerd FontF:size=13",
-  "MesloLGS:size=13",
-  "monospace:size=13",
+  "MesloLGS NF:size=12:antialias=true:autohint=true",
+  "MesloLGS Nerd FontF:size=12:antialias=true:autohint=true",
+  "MesloLGS:size=12:antialias=true:autohint=true",
+  "MesloLGS:size=12",
+  "MesloLGS NF:size=12",
+  "MesloLGS Nerd FontF:size=12",
+  "MesloLGS:size=12",
+  "monospace:size=12",
 };
 
 /* tagging */
@@ -51,13 +51,14 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class            instance    title             tags mask     isfloating   monitor */
-  {"zenity",          NULL,       NULL,             0,            1,           -1},
-  {"Xdialog",         NULL,       NULL,             0,            1,           -1},
-  {"yad",             NULL,       NULL,             0,            1,           -1},
-  {"steamwebhelper",  NULL,       "Friends List",   0,            1,           -1},
+	/* class            instance    title                   tags mask     isfloating   monitor */
+  {"zenity",          NULL,       NULL,                   0,            1,           -1},
+  {"Xdialog",         NULL,       NULL,                   0,            1,           -1},
+  {"yad",             NULL,       NULL,                   0,            1,           -1},
+  {"steamwebhelper",  NULL,       "Friends List",         0,            1,           -1},
+  {NULL,              NULL,       "Picture-in-Picture",   0,            1,           -1},
   // xev, it seems to not have class
-  // {NULL,              NULL,       "Event Tester",   0,            1,           -1},
+  // {NULL,              NULL,              "Event Tester",   0,            1,           -1},
 
 };
 
@@ -65,7 +66,7 @@ static const Rule rules[] = {
 static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static int nmaster     = 1;    /* number of clients in master area */
 static int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
-static int attachdirection = 0;    /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
+static int attachdirection = 2;    /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
@@ -89,24 +90,29 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 /* commands */
-#define LOCAL_DIR(name) "$HOME/.local/dwm/" name
+#define LOCAL_DIR(name) "$HOME/.local/dwm/helpers" name
 #define LOCAL_DSCR(name, cmd) "if [ -x \"" LOCAL_DIR(name) "\" ]; then \"" LOCAL_DIR(name) "\" ; else " cmd " ; fi"
 #define EMPTY_CMD "true"
-static char *dmenucmd[] = { "sh", "-c", LOCAL_DSCR("dmenucmd.sh", "exec dmenu_run -F"), NULL };
-static char *dmenucmd_alt[] = { "sh", "-c", LOCAL_DSCR("dmenucmd_alt.sh", "exec dmenu_run"), NULL };
-static char *alt_runner[] = { "sh", "-c", LOCAL_DSCR("alt_runner.sh", "exec rofi -show run -matching fuzzy"), NULL };
-static char *termcmd[]  = { "sh", "-c", LOCAL_DSCR("termcmd.sh", "exec tabbed st -w"), NULL };
-static char *termcmd_alt[]  = { "sh", "-c", LOCAL_DSCR("termcmd_alt.sh", "exec st"), NULL };
-static char *suspend[]  = { "sh", "-c", LOCAL_DSCR("suspend.sh", EMPTY_CMD), NULL };
-static char *suspend_alt[]  = { "sh", "-c", LOCAL_DSCR("suspend_alt.sh", EMPTY_CMD), NULL };
-static char *pass_man[]  = { "sh", "-c", LOCAL_DSCR("pass_man.sh", "passmenu"), NULL };
-static char *pass_man_alt[]  = { "sh", "-c", LOCAL_DSCR("pass_man_alt.sh", "passmenu-otp"), NULL };
-static char *mon_man[]  = { "sh", "-c", LOCAL_DSCR("mon_man.sh", EMPTY_CMD), NULL };
-static char *mon_man_alt[]  = { "sh", "-c", LOCAL_DSCR("mon_man_alt.sh", EMPTY_CMD), NULL };
-static char *screenshot[]  = { "sh", "-c", LOCAL_DSCR("screenshot.sh", EMPTY_CMD), NULL };
-static char *screenshot_alt[]  = { "sh", "-c", LOCAL_DSCR("screenshot_alt.sh", EMPTY_CMD), NULL };
-static char *user_cmd1[]  = { "sh", "-c", LOCAL_DSCR("user_cmd1.sh", EMPTY_CMD), NULL };
-static char *user_cmd2[]  = { "sh", "-c", LOCAL_DSCR("user_cmd2.sh", EMPTY_CMD), NULL };
+static char *dmenucmd[] = { "sh", "-c", LOCAL_DSCR("dmenucmd", "exec dmenu_run -F"), NULL };
+static char *dmenucmd_alt[] = { "sh", "-c", LOCAL_DSCR("dmenucmd_alt", "exec dmenu_run"), NULL };
+static char *alt_runner[] = { "sh", "-c", LOCAL_DSCR("alt_runner", "exec rofi -show run -matching fuzzy"), NULL };
+static char *termcmd[]  = { "sh", "-c", LOCAL_DSCR("termcmd", "exec tabbed st -w"), NULL };
+static char *termcmd_alt[]  = { "sh", "-c", LOCAL_DSCR("termcmd_alt", "exec st"), NULL };
+static char *lock_screen[]  = { "sh", "-c", LOCAL_DSCR("lock_screen", "slock"), NULL };
+static char *suspend[]  = { "sh", "-c", LOCAL_DSCR("suspend", "systemctl suspend"), NULL };
+static char *suspend_alt[]  = { "sh", "-c", LOCAL_DSCR("suspend_alt", "loginctl suspend"), NULL };
+static char *pass_man[]  = { "sh", "-c", LOCAL_DSCR("pass_man", "passmenu"), NULL };
+static char *pass_man_alt[]  = { "sh", "-c", LOCAL_DSCR("pass_man_alt", "passmenu-otp"), NULL };
+static char *mon_man[]  = { "sh", "-c", LOCAL_DSCR("mon_man", EMPTY_CMD), NULL };
+static char *mon_man_alt[]  = { "sh", "-c", LOCAL_DSCR("mon_man_alt", EMPTY_CMD), NULL };
+static char *screenshot[]  = { "sh", "-c", LOCAL_DSCR("screenshot", EMPTY_CMD), NULL };
+static char *screenshot_alt[]  = { "sh", "-c", LOCAL_DSCR("screenshot_alt", EMPTY_CMD), NULL };
+static char *user_cmd1[]  = { "sh", "-c", LOCAL_DSCR("user_cmd1", EMPTY_CMD), NULL };
+static char *user_cmd2[]  = { "sh", "-c", LOCAL_DSCR("user_cmd2", EMPTY_CMD), NULL };
+static char *user_cmd3[]  = { "sh", "-c", LOCAL_DSCR("user_cmd3", EMPTY_CMD), NULL };
+static char *user_cmd4[]  = { "sh", "-c", LOCAL_DSCR("user_cmd4", EMPTY_CMD), NULL };
+static char *bar_cmd1[]  = { "sh", "-c", LOCAL_DSCR("bar_cmd1", EMPTY_CMD), NULL };
+static char *bar_cmd2[]  = { "sh", "-c", LOCAL_DSCR("bar_cmd2", EMPTY_CMD), NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -133,6 +139,7 @@ ResourcePref resources[] = {
 		{ "alt_runner",    	 	  STRING,  &alt_runner[2] },
 		{ "termcmd",      	 	  STRING,  &termcmd[2] },
 		{ "termcmd_alt",      	STRING,  &termcmd_alt[2] },
+		{ "lock_screen",      	STRING,  &lock_screen[2] },
 		{ "suspend",      	 	  STRING,  &suspend[2] },
 		{ "suspend_alt",      	STRING,  &suspend_alt[2] },
 		{ "pass_man",      	 	  STRING,  &pass_man[2] },
@@ -143,6 +150,10 @@ ResourcePref resources[] = {
 		{ "screenshot_alt",     STRING,  &screenshot_alt[2] },
 		{ "user_cmd1",      	 	STRING,  &user_cmd1[2] },
 		{ "user_cmd2",          STRING,  &user_cmd2[2] },
+		{ "user_cmd3",      	 	STRING,  &user_cmd3[2] },
+		{ "user_cmd4",          STRING,  &user_cmd4[2] },
+		{ "bar_cmd1",      	 	  STRING,  &bar_cmd1[2] },
+		{ "bar_cmd2",           STRING,  &bar_cmd2[2] },
 };
 
 static const Key keys[] = {
@@ -152,6 +163,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_g,           spawn,            {.v = alt_runner } },
 	{ MODKEY,                       XK_Return,      spawn,            {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return,      spawn,            {.v = termcmd_alt } },
+	{ MODKEY|Mod1Mask,              XK_Return,      reload_xres,      {0} },
+	{ MODKEY,                       XK_s,           spawn,            {.v = lock_screen } },
 	{ MODKEY|ShiftMask,             XK_s,           spawn,            {.v = suspend } },
 	{ MODKEY|ControlMask,           XK_s,           spawn,            {.v = suspend_alt } },
 	{ MODKEY,                       XK_w,           spawn,            {.v = pass_man } },
@@ -160,10 +173,9 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,           spawn,            {.v = mon_man_alt } },
 	{ MODKEY,                       XK_r,           spawn,            {.v = user_cmd1 } },
 	{ MODKEY|ShiftMask,             XK_r,           spawn,            {.v = user_cmd2 } },
+	{ MODKEY|ControlMask,           XK_r,           spawn,            {.v = user_cmd3 } },
+	{ MODKEY|Mod1Mask,              XK_r,           spawn,            {.v = user_cmd4 } },
   // TODO screenshot
-
-	{ MODKEY|ControlMask,           XK_space,       togglefloating,   {0} },
-	{ MODKEY|ShiftMask,             XK_Tab,         togglebar,        {0} },
 
 	{ MODKEY,                       XK_c,           killclient,       {0} },
 	{ MODKEY|ShiftMask,             XK_e,           quit,             {0} },
@@ -172,30 +184,34 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_l,           focusstackvis,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_h,           focusstackhid,    {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_l,           focusstackhid,    {.i = +1 } },
+	{ MODKEY|Mod1Mask,              XK_h,           pushup,           {0} },
+	{ MODKEY|Mod1Mask,              XK_l,           pushdown,         {0} },
 
 	{ MODKEY,                       XK_j,           setmfact,         {.f = -0.05} },
 	{ MODKEY,                       XK_k,           setmfact,         {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_j,           setmfact,         {.f = -0.01} },
 	{ MODKEY|ShiftMask,             XK_k,           setmfact,         {.f = +0.01} },
+	{ MODKEY|Mod1Mask,              XK_k,           incnmaster,       {.i = +1 } },
+	{ MODKEY|Mod1Mask,              XK_j,           incnmaster,       {.i = -1 } },
 
 	{ MODKEY,                       XK_comma,       focusmon,         {.i = -1 } },
 	{ MODKEY,                       XK_period,      focusmon,         {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_comma,       tagmon,           {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period,      tagmon,           {.i = +1 } },
-
-	{ MODKEY|Mod1Mask,              XK_k,           incnmaster,       {.i = +1 } },
-	{ MODKEY|Mod1Mask,              XK_j,           incnmaster,       {.i = -1 } },
-
-	{ MODKEY,                       XK_z,           zoom,             {0} },
-	{ MODKEY|ShiftMask,             XK_z,           reload_xres,      {0} },
-  { MODKEY,                       XK_space,       swapfocus,        {0} },
-	{ MODKEY|ShiftMask,             XK_space,       focusmaster,      {0} },
   // TODO implement direction for swapmon
   { MODKEY|Mod1Mask,              XK_comma,       swapmon,          {.i = -1} },
   { MODKEY|Mod1Mask,              XK_period,      swapmon,          {.i = +1} },
 
+	{ MODKEY|ShiftMask,             XK_Tab,         togglebar,        {0} },
+	{ MODKEY|ControlMask,           XK_Tab,         togglefloating,   {0} },
+
+	{ MODKEY,                       XK_z,           focusmaster,      {0} },
+	{ MODKEY|ShiftMask,             XK_z,           zoom,             {0} },
+  { MODKEY,                       XK_space,       swapfocus,        {0} },
+
 	{ MODKEY,                       XK_v,           hidtoggle,        {0} },
 	{ MODKEY|ControlMask,           XK_v,           showall,          {0} },
+	{ MODKEY|Mod1Mask,              XK_v,           unfloatvisible,   {0} },
 
 	{ MODKEY,                       XK_0,           view,             {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,           tag,              {.ui = ~0 } },
@@ -220,7 +236,7 @@ static const Key keys[] = {
 	{ MODKEY|Mod1Mask,              XK_7,           setlayout,      {.v = &layouts[1]} },
 	{ MODKEY|Mod1Mask,              XK_8,           setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|Mod1Mask,              XK_9,           setlayout,      {.v = &layouts[3]} },
-	{ MODKEY|ShiftMask|ControlMask, XK_space,       setlayout,      {0} },
+	// { MODKEY|ShiftMask|ControlMask, XK_space,       setlayout,      {0} },
 };
 
 // TODO it could be more powerful I guess
@@ -233,11 +249,16 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
+
+  // scroll
 	{ ClkWinTitle,          0,              Button4,        focusstackvis,  {.i = -1} },
 	{ ClkWinTitle,          0,              Button5,        focusstackvis,  {.i = +1} },
 	{ ClkWinTitle,          ShiftMask,      Button4,        focusstackhid,  {.i = -1} },
 	{ ClkWinTitle,          ShiftMask,      Button5,        focusstackhid,  {.i = +1} },
+
+	{ ClkStatusText,        0,              Button1,        spawn,          {.v = bar_cmd1 } },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button3,        spawn,          {.v = bar_cmd2 } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
