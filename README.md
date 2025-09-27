@@ -68,8 +68,8 @@ Those were modified more significantly:
   moving initialization to the end of function; this was simply removed 
   and it works now
 - unfloatvisible - moved code from separate file to `dwm.c`
-- push_no_master - to properly work with nmaster (and only in client 
-  area)
+- push_no_master - to work in both master and client area but not cross 
+  boundary between them
 
 ### Mine
 

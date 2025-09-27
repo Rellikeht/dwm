@@ -13,7 +13,7 @@ index e5efb6a..660a8ac 100644
  static void quit(const Arg *arg);
  static Monitor *recttomon(int x, int y, int w, int h);
  static void resize(Client *c, int x, int y, int w, int h, int interact);
-@@ -1209,6 +1212,16 @@ pop(Client *c)
+@@ -1209,6 +1212,15 @@ pop(Client *c)
  	arrange(c->mon);
  }
  
@@ -21,32 +21,31 @@ index e5efb6a..660a8ac 100644
 +prevtiled(Client *c) {
 +	Client *p, *r;
 +
-+	for(p = selmon->clients, r = NULL; p && p != c; p = p->next)
-+		if(!p->isfloating && ISVISIBLE(p))
-+			r = p;
++	for(p = nexttiled(selmon->clients), r = NULL; p && p != c; p = nexttiled(p->next)) {
++		 r = p;}
 +	return r;
 +}
 +
  void
  propertynotify(XEvent *e)
  {
-@@ -1246,6 +1259,49 @@ propertynotify(XEvent *e)
+@@ -1246,6 +1259,55 @@ propertynotify(XEvent *e)
  	}
  }
  
 +void
 +pushdown(const Arg *arg) {
-+	Client *sel = selmon->sel, *lastmaster = nexttiled(selmon->clients), *c;
++	Client *sel = selmon->sel, *untouchable = nexttiled(selmon->clients), *c;
++	int i = 0;
 +
-+	if(!sel || sel->isfloating || !lastmaster || sel == lastmaster)
++	if(!sel || sel->isfloating || !ISVISIBLE(sel) || !untouchable)
 +		return;
-+	for (int i = 0; i < selmon->nmaster-1; i++) {
-+		c = nexttiled(lastmaster->next);
-+		if (!c || c == sel)
-+			return;
-+		lastmaster = c;
++	for (; i < selmon->nmaster;i++) {//+master_area; i++) {
++		untouchable = nexttiled(untouchable->next);
++		if (!untouchable)
++			break;
 +	}
-+	if((c = nexttiled(sel->next))) {
++	if((c = nexttiled(sel->next)) && c != untouchable) {
 +		detach(sel);
 +		sel->next = c->next;
 +		c->next = sel;
@@ -57,21 +56,27 @@ index e5efb6a..660a8ac 100644
 +
 +void
 +pushup(const Arg *arg) {
-+	Client *sel = selmon->sel, *lastmaster = nexttiled(selmon->clients), *c;
++	Client *sel = selmon->sel, *untouchable = nexttiled(selmon->clients), *c;
++	int i = 0;
 +
-+	if(!sel || sel->isfloating || !lastmaster || sel == lastmaster)
++	if(!sel || sel->isfloating || !ISVISIBLE(sel) || !untouchable || untouchable == sel)
 +		return;
-+	for (int i = 0; i < selmon->nmaster-1; i++) {
-+		c = nexttiled(lastmaster->next);
-+		if (!c || c == sel)
-+			return;
-+		lastmaster = c;
++	if (selmon->nmaster <= 0)
++		untouchable = NULL;
++	for (;i < selmon->nmaster-1; i++) {
++		untouchable = nexttiled(untouchable->next);
++		if (!untouchable)
++			break;
 +	}
-+	if((c = prevtiled(sel)) && c != lastmaster) {
++	if((c = prevtiled(sel)) && c != untouchable) {
 +		detach(sel);
 +		sel->next = c;
-+		for(c = selmon->clients; c->next != sel->next; c = c->next);
-+		c->next = sel;
++		if (c == selmon->clients)
++			selmon->clients = sel;
++		else {
++			for (c = selmon->clients; c->next != sel->next; c = c->next);
++			c->next = sel;
++		}
 +	}
 +	focus(sel);
 +	arrange(selmon);
