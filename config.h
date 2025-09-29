@@ -90,7 +90,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 /* commands */
-#define LOCAL_DIR(name) "$HOME/.local/dwm/helpers" name
+#define LOCAL_DIR(name) "$HOME/.local/dwm/helpers/" name
 #define LOCAL_DSCR(name, cmd) "if [ -x \"" LOCAL_DIR(name) "\" ]; then \"" LOCAL_DIR(name) "\" ; else " cmd " ; fi"
 #define EMPTY_CMD "true"
 
