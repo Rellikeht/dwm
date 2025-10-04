@@ -172,7 +172,26 @@ index 5e4d494..2214b19 100644
  
  /* variables */
  static const char broken[] = "broken";
-@@ -2127,6 +2143,60 @@ zoom(const Arg *arg)
+@@ -300,7 +300,8 @@ static Display *dpy;
+ static Drw *drw;
+ static Monitor *mons, *selmon;
+ static Window root, wmcheckwin;
+-
++ static Fnt *drw_fonts_loaded;
++
+ /* configuration, allows nested code to access above variables */
+ #include "config.h"
+ 
+@@ -1900,7 +1900,7 @@ setup(void)
+ 	sh = DisplayHeight(dpy, screen);
+ 	root = RootWindow(dpy, screen);
+ 	drw = drw_create(dpy, screen, root, sw, sh);
+-	if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
++	if (!(drw_fonts_loaded || drw_fontset_create(drw, fonts, LENGTH(fonts))))
+ 		die("no fonts could be loaded.");
+ 	lrpad = drw->fonts->h;
+ 	bh = drw->fonts->h + 2;
+@@ -2127,6 +2143,61 @@ zoom(const Arg *arg)
  	pop(c);
  }
  
@@ -227,6 +246,7 @@ index 5e4d494..2214b19 100644
 +	db = XrmGetStringDatabase(resm);
 +	for (p = resources; p < resources + LENGTH(resources); p++)
 +		resource_load(db, p->name, p->type, p->dst);
++	drw_fonts_loaded = drw_fontset_create(drw, fonts, LENGTH(fonts));
 +	XCloseDisplay(display);
 +}
 +

@@ -115,60 +115,62 @@ static char *mon_man_ctrl[]  = { "sh", "-c", LOCAL_DSCR("mon_man_ctrl", EMPTY_CM
 static char *screenshot[]  = { "sh", "-c", LOCAL_DSCR("screenshot", EMPTY_CMD), NULL };
 static char *screenshot_shift[]  = { "sh", "-c", LOCAL_DSCR("screenshot_shift", EMPTY_CMD), NULL };
 static char *screenshot_ctrl[]  = { "sh", "-c", LOCAL_DSCR("screenshot_ctrl", EMPTY_CMD), NULL };
-static char *user_cmd1[]  = { "sh", "-c", LOCAL_DSCR("user_cmd1", EMPTY_CMD), NULL };
-static char *user_cmd2[]  = { "sh", "-c", LOCAL_DSCR("user_cmd2", EMPTY_CMD), NULL };
-static char *user_cmd3[]  = { "sh", "-c", LOCAL_DSCR("user_cmd3", EMPTY_CMD), NULL };
-static char *user_cmd4[]  = { "sh", "-c", LOCAL_DSCR("user_cmd4", EMPTY_CMD), NULL };
+static char *user_cmd[]  = { "sh", "-c", LOCAL_DSCR("user_cmd", EMPTY_CMD), NULL };
+static char *user_cmd_shift[]  = { "sh", "-c", LOCAL_DSCR("user_cmd_shift", EMPTY_CMD), NULL };
+static char *user_cmd_ctrl[]  = { "sh", "-c", LOCAL_DSCR("user_cmd_ctrl", EMPTY_CMD), NULL };
+static char *user_cmd_alt[]  = { "sh", "-c", LOCAL_DSCR("user_cmd_alt", EMPTY_CMD), NULL };
 static char *bar_cmd1[]  = { "sh", "-c", LOCAL_DSCR("bar_cmd1", EMPTY_CMD), NULL };
 static char *bar_cmd2[]  = { "sh", "-c", LOCAL_DSCR("bar_cmd2", EMPTY_CMD), NULL };
+static char *bar_cmd3[]  = { "sh", "-c", LOCAL_DSCR("bar_cmd3", EMPTY_CMD), NULL };
 
 /*
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-    { "font",               STRING,  &font },
-    { "dmenufont",          STRING,  &dmenufont },
-    { "normbgcolor",        STRING,  &normbgcolor },
-    { "normbordercolor",    STRING,  &normbordercolor },
-    { "normfgcolor",        STRING,  &normfgcolor },
-    { "selbgcolor",         STRING,  &selbgcolor },
-    { "selbordercolor",     STRING,  &selbordercolor },
-    { "selfgcolor",         STRING,  &selfgcolor },
-    { "borderpx",           INTEGER, &borderpx },
-    { "snap",               INTEGER, &snap },
-    { "showbar",            INTEGER, &showbar },
-    { "topbar",             INTEGER, &topbar },
-    { "nmaster",            INTEGER, &nmaster },
-    { "resizehints",        INTEGER, &resizehints },
-    { "attachdirection",    INTEGER, &attachdirection },
-    { "mfact",              FLOAT,   &mfact },
-    { "dmenucmd",           STRING,  &dmenucmd[2] },
-    { "dmenucmd_shift",     STRING,  &dmenucmd_shift[2] },
-    { "dmenucmd_ctrl",      STRING,  &dmenucmd_ctrl[2] },
-    { "alt_runner",         STRING,  &alt_runner[2] },
-    { "alt_runner_shift",   STRING,  &alt_runner_shift[2] },
-    { "alt_runner_ctrl",    STRING,  &alt_runner_ctrl[2] },
-    { "termcmd",            STRING,  &termcmd[2] },
-    { "termcmd_shift",      STRING,  &termcmd_shift[2] },
-    { "termcmd_ctrl",       STRING,  &termcmd_ctrl[2] },
-    { "suspend",            STRING,  &suspend[2] },
-    { "suspend_shift",      STRING,  &suspend_shift[2] },
-    { "suspend_ctrl",       STRING,  &suspend_ctrl[2] },
-    { "pass_man",           STRING,  &pass_man[2] },
-    { "pass_man_shift",     STRING,  &pass_man_shift[2] },
-    { "pass_man_ctrl",      STRING,  &pass_man_ctrl[2] },
-    { "mon_man",            STRING,  &mon_man[2] },
-    { "mon_man_shift",      STRING,  &mon_man_shift[2] },
-    { "mon_man_ctrl",       STRING,  &mon_man_ctrl[2] },
-    { "screenshot",         STRING,  &screenshot[2] },
-    { "screenshot_shift",   STRING,  &screenshot_shift[2] },
-    { "screenshot_ctrl",    STRING,  &screenshot_ctrl[2] },
-    { "user_cmd1",          STRING,  &user_cmd1[2] },
-    { "user_cmd2",          STRING,  &user_cmd2[2] },
-    { "user_cmd3",          STRING,  &user_cmd3[2] },
-    { "user_cmd4",          STRING,  &user_cmd4[2] },
-    { "bar_cmd1",           STRING,  &bar_cmd1[2] },
-    { "bar_cmd2",           STRING,  &bar_cmd2[2] },
+    { "font",                 STRING,  &font },
+    { "dmenufont",            STRING,  &dmenufont },
+    { "normbgcolor",          STRING,  &normbgcolor },
+    { "normbordercolor",      STRING,  &normbordercolor },
+    { "normfgcolor",          STRING,  &normfgcolor },
+    { "selbgcolor",           STRING,  &selbgcolor },
+    { "selbordercolor",       STRING,  &selbordercolor },
+    { "selfgcolor",           STRING,  &selfgcolor },
+    { "borderpx",             INTEGER, &borderpx },
+    { "snap",                 INTEGER, &snap },
+    { "showbar",              INTEGER, &showbar },
+    { "topbar",               INTEGER, &topbar },
+    { "nmaster",              INTEGER, &nmaster },
+    { "resizehints",          INTEGER, &resizehints },
+    { "attachdirection",      INTEGER, &attachdirection },
+    { "mfact",                FLOAT,   &mfact },
+    { "dmenucmd",             STRING,  &dmenucmd[2] },
+    { "dmenucmd_shift",       STRING,  &dmenucmd_shift[2] },
+    { "dmenucmd_ctrl",        STRING,  &dmenucmd_ctrl[2] },
+    { "alt_runner",           STRING,  &alt_runner[2] },
+    { "alt_runner_shift",     STRING,  &alt_runner_shift[2] },
+    { "alt_runner_ctrl",      STRING,  &alt_runner_ctrl[2] },
+    { "termcmd",              STRING,  &termcmd[2] },
+    { "termcmd_shift",        STRING,  &termcmd_shift[2] },
+    { "termcmd_ctrl",         STRING,  &termcmd_ctrl[2] },
+    { "suspend",              STRING,  &suspend[2] },
+    { "suspend_shift",        STRING,  &suspend_shift[2] },
+    { "suspend_ctrl",         STRING,  &suspend_ctrl[2] },
+    { "pass_man",             STRING,  &pass_man[2] },
+    { "pass_man_shift",       STRING,  &pass_man_shift[2] },
+    { "pass_man_ctrl",        STRING,  &pass_man_ctrl[2] },
+    { "mon_man",              STRING,  &mon_man[2] },
+    { "mon_man_shift",        STRING,  &mon_man_shift[2] },
+    { "mon_man_ctrl",         STRING,  &mon_man_ctrl[2] },
+    { "screenshot",           STRING,  &screenshot[2] },
+    { "screenshot_shift",     STRING,  &screenshot_shift[2] },
+    { "screenshot_ctrl",      STRING,  &screenshot_ctrl[2] },
+    { "user_cmd",             STRING,  &user_cmd[2] },
+    { "user_cmd_shift",       STRING,  &user_cmd_shift[2] },
+    { "user_cmd_ctrl",        STRING,  &user_cmd_ctrl[2] },
+    { "user_cmd_alt",         STRING,  &user_cmd_alt[2] },
+    { "bar_cmd1",             STRING,  &bar_cmd1[2] },
+    { "bar_cmd2",             STRING,  &bar_cmd2[2] },
+    { "bar_cmd3",             STRING,  &bar_cmd3[2] },
 };
 
 static const Key keys[] = {
@@ -192,10 +194,13 @@ static const Key keys[] = {
   { MODKEY,                       XK_m,           spawn,            {.v = mon_man } },
   { MODKEY|ShiftMask,             XK_m,           spawn,            {.v = mon_man_shift } },
   { MODKEY|ControlMask,           XK_m,           spawn,            {.v = mon_man_ctrl } },
-  { MODKEY,                       XK_r,           spawn,            {.v = user_cmd1 } },
-  { MODKEY|ShiftMask,             XK_r,           spawn,            {.v = user_cmd2 } },
-  { MODKEY|ControlMask,           XK_r,           spawn,            {.v = user_cmd3 } },
-  { MODKEY|Mod1Mask,              XK_r,           spawn,            {.v = user_cmd4 } },
+  { MODKEY,                       XK_y,           spawn,            {.v = screenshot } },
+  { MODKEY|ShiftMask,             XK_y,           spawn,            {.v = screenshot_shift } },
+  { MODKEY|ControlMask,           XK_y,           spawn,            {.v = screenshot_ctrl } },
+  { MODKEY,                       XK_r,           spawn,            {.v = user_cmd } },
+  { MODKEY|ShiftMask,             XK_r,           spawn,            {.v = user_cmd_shift } },
+  { MODKEY|ControlMask,           XK_r,           spawn,            {.v = user_cmd_ctrl } },
+  { MODKEY|Mod1Mask,              XK_r,           spawn,            {.v = user_cmd_alt } },
   // TODO screenshot
 
   { MODKEY,                       XK_c,           killclient,       {0} },
@@ -229,7 +234,7 @@ static const Key keys[] = {
   { MODKEY,                       XK_z,           focusmaster,      {0} },
   { MODKEY|ShiftMask,             XK_z,           zoom,             {0} },
   { MODKEY,                       XK_space,       swapfocus,        {0} },
-  // { MODKEY|ShiftMask|ControlMask, XK_space,       setlayout,      {0} },
+  { MODKEY|Mod1Mask,              XK_space,       setlayout,      {0} },
 
   { MODKEY,                       XK_v,           hidtoggle,        {0} },
   { MODKEY|ControlMask,           XK_v,           showall,          {0} },
@@ -278,8 +283,8 @@ static const Button buttons[] = {
   { ClkWinTitle,          ShiftMask,      Button5,        focusstackhid,  {.i = +1} },
 
   { ClkStatusText,        0,              Button1,        spawn,          {.v = bar_cmd1 } },
-  { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
-  { ClkStatusText,        0,              Button3,        spawn,          {.v = bar_cmd2 } },
+  { ClkStatusText,        0,              Button2,        spawn,          {.v = bar_cmd2 } },
+  { ClkStatusText,        0,              Button3,        spawn,          {.v = bar_cmd3 } },
   { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
   { ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
   { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
