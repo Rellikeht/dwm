@@ -1,4 +1,4 @@
-diff -up original/dwm.c patched/dwm.c
+d0iff -up original/dwm.c patched/dwm.c
 --- original/dwm.c	2025-09-21 15:10:25.703117632 +0200
 +++ patched/dwm.c	2025-09-21 15:21:29.749005457 +0200
 @@ -884,7 +884,6 @@ void
@@ -62,15 +62,6 @@ diff -up original/dwm.c patched/dwm.c
  	                        ty += HEIGHT(c) - c->bw;
  	                }
  	}
-@@ -2157,7 +2156,7 @@ togglefloating(const Arg *arg)
- 	selmon->sel->isfloating = !selmon->sel->isfloating || selmon->sel->isfixed;
- 	if (selmon->sel->isfloating)
- 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
--			selmon->sel->w, selmon->sel->h, 0);
-+			selmon->sel->w, selmon->sel->h, 0, 0);
- 	arrange(selmon);
- }
- 
 @@ -2245,7 +2245,8 @@ void
  togglewin(const Arg *arg)
  {

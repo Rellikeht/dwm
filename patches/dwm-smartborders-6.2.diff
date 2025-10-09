@@ -89,7 +89,7 @@ index 4465af1..3c94e4b 100644
  				XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, m->ww, bh);
  			}
  			focus(NULL);
-@@ -1112,7 +1119,7 @@ n++;
+@@ -1112,7 +1119,7 @@ monocle(Monitor *m)
  	if (n > 0) /* override layout symbol */
  		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
  	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
@@ -179,7 +179,7 @@ index 4465af1..3c94e4b 100644
  		showhide(c->snext);
  	} else {
  		/* hide clients bottom up */
-@@ -1673,13 +1678,17 @@ tagmon(const Arg *arg)
+@@ -1673,13 +1673,17 @@ tagmon(const Arg *arg)
  void
  tile(Monitor *m)
  {
@@ -198,7 +198,7 @@ index 4465af1..3c94e4b 100644
  	if (n > m->nmaster)
  		mw = m->nmaster ? m->ww * m->mfact : 0;
  	else
-@@ -1687,11 +1696,11 @@ mw = m->ww;
+@@ -1692,11 +1692,11 @@ tile(Monitor *m)
  	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
  		if (i < m->nmaster) {
  			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
@@ -213,6 +213,10 @@ index 4465af1..3c94e4b 100644
  			if (ty + HEIGHT(c) < m->wh)
  				ty += HEIGHT(c);
  		}
+diff --git a/dwm.c b/dwm.c
+index 4465af1..3c94e4b 100644
+--- a/dwm.c
++++ b/dwm.c
 @@ -1715,7 +1724,9 @@ togglefloating(const Arg *arg)
  	selmon->sel->isfloating = !selmon->sel->isfloating || selmon->sel->isfixed;
  	if (selmon->sel->isfloating)
