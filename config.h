@@ -9,14 +9,10 @@ static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
 
 static char normbgcolor[]           = "#01080b";
-static char normbordercolor[]       = "#222222";
-static char normfgcolor[]           = "#086aab";
-// TODO
-// static char selfgcolor[]            = "#124578";
-// static char selbordercolor[]        = "#02aacd";
-// static char selbgcolor[]            = "#04202c";
-static char selfgcolor[]            = "#01080b";
-static char selbordercolor[]        = "#086aab";
+static char normbordercolor[]       = "#333333";
+static char normfgcolor[]           = "#124578";
+static char selfgcolor[]            = "#04202c";
+static char selbordercolor[]        = "#086aab"; // #0760a2
 static char selbgcolor[]            = "#02aacd";
 
 // TODO
@@ -94,12 +90,12 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 #define LOCAL_DSCR(name, cmd) "if [ -x \"" LOCAL_DIR(name) "\" ]; then \"" LOCAL_DIR(name) "\" ; else " cmd " ; fi"
 #define EMPTY_CMD "true"
 
-static char *dmenucmd[] = { "sh", "-c", LOCAL_DSCR("dmenucmd", "exec dmenu_run -F"), NULL };
-static char *dmenucmd_shift[] = { "sh", "-c", LOCAL_DSCR("dmenucmd_shift", "exec dmenu_run"), NULL };
-static char *dmenucmd_ctrl[] = { "sh", "-c", LOCAL_DSCR("dmenucmd_ctrl", "exec dmenu_run"), NULL };
-static char *alt_runner[] = { "sh", "-c", LOCAL_DSCR("alt_runner", "exec rofi -show run -matching fuzzy"), NULL };
-static char *alt_runner_shift[] = { "sh", "-c", LOCAL_DSCR("alt_runner_shift", "exec rofi -show run -matching fuzzy"), NULL };
-static char *alt_runner_ctrl[] = { "sh", "-c", LOCAL_DSCR("alt_runner_ctrl", "exec rofi -show run -matching fuzzy"), NULL };
+static char *dmenucmd[] = { "sh", "-c", LOCAL_DSCR("dmenucmd $0", "exec dmenu_run -F -m $0"), dmenumon, NULL };
+static char *dmenucmd_shift[] = { "sh", "-c", LOCAL_DSCR("dmenucmd_shift $0", "exec dmenu_run -m $0"), dmenumon, NULL };
+static char *dmenucmd_ctrl[] = { "sh", "-c", LOCAL_DSCR("dmenucmd_ctrl $0", "exec dmenu_run -m $0"), dmenumon, NULL };
+static char *alt_runner[] = { "sh", "-c", LOCAL_DSCR("alt_runner $0", "exec rofi -show run -matching fuzzy -m $0"), dmenumon, NULL };
+static char *alt_runner_shift[] = { "sh", "-c", LOCAL_DSCR("alt_runner_shift $0", "exec rofi -show run -matching fuzzy -m $0"), dmenumon, NULL };
+static char *alt_runner_ctrl[] = { "sh", "-c", LOCAL_DSCR("alt_runner_ctrl $0", "exec rofi -show run -matching fuzzy -m $0"), dmenumon, NULL };
 static char *termcmd[]  = { "sh", "-c", LOCAL_DSCR("termcmd", "exec tabbed st -w"), NULL };
 static char *termcmd_shift[]  = { "sh", "-c", LOCAL_DSCR("termcmd_shift", "exec st"), NULL };
 static char *termcmd_ctrl[]  = { "sh", "-c", LOCAL_DSCR("termcmd_ctrl", "exec st"), NULL };
@@ -230,6 +226,7 @@ static const Key keys[] = {
 
   { MODKEY|ShiftMask,             XK_Tab,         togglebar,        {0} },
   { MODKEY|ControlMask,           XK_Tab,         togglefloating,   {0} },
+  { MODKEY|Mod1Mask,              XK_Tab,         unfloatvisible,   {0} },
 
   { MODKEY,                       XK_z,           focusmaster,      {0} },
   { MODKEY|ShiftMask,             XK_z,           zoom,             {0} },
@@ -238,7 +235,6 @@ static const Key keys[] = {
 
   { MODKEY,                       XK_v,           hidtoggle,        {0} },
   { MODKEY|ControlMask,           XK_v,           showall,          {0} },
-  { MODKEY|Mod1Mask,              XK_v,           unfloatvisible,   {0} },
 
   { MODKEY,                       XK_0,           view,             {.ui = ~0 } },
   { MODKEY|ShiftMask,             XK_0,           tag,              {.ui = ~0 } },
