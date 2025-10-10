@@ -10,9 +10,9 @@ static int topbar             = 1;        /* 0 means bottom bar */
 
 static char normbgcolor[]           = "#01080b";
 static char normbordercolor[]       = "#333333";
-static char normfgcolor[]           = "#124578";
+static char normfgcolor[]           = "#086aab"; // "#124578";
 static char selfgcolor[]            = "#04202c";
-static char selbordercolor[]        = "#086aab"; // #0760a2
+static char selbordercolor[]        = "#0760a2";
 static char selbgcolor[]            = "#02aacd";
 
 // TODO
