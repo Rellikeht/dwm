@@ -88,15 +88,18 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 /* commands */
 #define LOCAL_DIR(name) "$HOME/.local/dwm/helpers/" name
 #define LOCAL_DSCR(name, cmd) "if [ -x \"" LOCAL_DIR(name) "\" ]; then \"" LOCAL_DIR(name) "\" ; else " cmd " ; fi"
-#define LOCAL_DSCR_ARG(name, cmd, arg) "if [ -x \"" LOCAL_DIR(name) "\" ]; then \"" LOCAL_DIR(name) "\" \"" arg "\" ; else " cmd "\"" arg "\" ; fi"
+#define LOCAL_DSCR_ARG(name, cmd, arg) "if [ -x \"" LOCAL_DIR(name) "\" ]; then \"" LOCAL_DIR(name) "\" " arg " ; else " cmd " " arg " ; fi"
 #define EMPTY_CMD "true"
 
 static char *dmenucmd[] = { "sh", "-c", LOCAL_DSCR_ARG("dmenucmd", "exec dmenu_run -F -m", "$0"), dmenumon, NULL };
 static char *dmenucmd_shift[] = { "sh", "-c", LOCAL_DSCR_ARG("dmenucmd_shift", "exec dmenu_run -m", "$0"), dmenumon, NULL };
 static char *dmenucmd_ctrl[] = { "sh", "-c", LOCAL_DSCR_ARG("dmenucmd_ctrl", "exec dmenu_run -m", "$0"), dmenumon, NULL };
-static char *alt_runner[] = { "sh", "-c", LOCAL_DSCR_ARG("alt_runner", "exec rofi -show run -matching fuzzy -m", "$0"), dmenumon, NULL };
-static char *alt_runner_shift[] = { "sh", "-c", LOCAL_DSCR_ARG("alt_runner_shift", "exec rofi -show run -matching fuzzy -m", "$0"), dmenumon, NULL };
-static char *alt_runner_ctrl[] = { "sh", "-c", LOCAL_DSCR_ARG("alt_runner_ctrl", "exec rofi -show run -matching fuzzy -m", "$0"), dmenumon, NULL };
+// static char *dmenucmd_ctrl[] = { "sh", "-c", LOCAL_DSCR_ARG("dmenucmd_ctrl", "exec dmenu_run -m", "0"), NULL };
+static char *alt_runner[] = { "sh", "-c", LOCAL_DSCR("alt_runner", "exec rofi -show run -matching fuzzy"), NULL };
+// static char *alt_runner[] = { "sh", "-c", LOCAL_DSCR_ARG("alt_runner", "exec rofi -show run -matching fuzzy -m", "$0"), dmenumon, NULL };
+static char *alt_runner_shift[] = { "sh", "-c", LOCAL_DSCR("alt_runner_shift", "exec rofi -show run -matching fuzzy"), NULL };
+static char *alt_runner_ctrl[] = { "sh", "-c", LOCAL_DSCR("alt_runner_ctrl", "exec rofi -show run -matching fuzzy"), NULL };
+// static char *alt_runner_ctrl[] = { "sh", "-c", LOCAL_DSCR_ARG("alt_runner_ctrl", "exec rofi -show run -matching fuzzy -m", "0"), NULL };
 static char *termcmd[]  = { "sh", "-c", LOCAL_DSCR("termcmd", "exec tabbed st -w"), NULL };
 static char *termcmd_shift[]  = { "sh", "-c", LOCAL_DSCR("termcmd_shift", "exec st"), NULL };
 static char *termcmd_ctrl[]  = { "sh", "-c", LOCAL_DSCR("termcmd_ctrl", "exec st"), NULL };

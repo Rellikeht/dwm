@@ -21,6 +21,14 @@ diff -up original/dwm.c patched/dwm.c
  	XChangeWindowAttributes(dpy, root, CWEventMask|CWCursor, &wa);
  	XSelectInput(dpy, root, wa.event_mask);
  	grabkeys();
+@@ -2120,7 +2120,6 @@ spawn(const Arg *arg)
+ {
+ 	struct sigaction sa;
+ 
+-	if (arg->v == dmenucmd)
+ 		dmenumon[0] = '0' + selmon->num;
+ 	if (fork() == 0) {
+ 		if (dpy)
 @@ -2709,7 +2709,22 @@ load_xresources(void)
  		resource_load(db, p->name, p->type, p->dst);
  	XCloseDisplay(display);
