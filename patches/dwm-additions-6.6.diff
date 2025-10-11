@@ -29,7 +29,7 @@ diff -up original/dwm.c patched/dwm.c
  		dmenumon[0] = '0' + selmon->num;
  	if (fork() == 0) {
  		if (dpy)
-@@ -2709,7 +2709,22 @@ load_xresources(void)
+@@ -2709,7 +2709,34 @@ load_xresources(void)
  		resource_load(db, p->name, p->type, p->dst);
  	XCloseDisplay(display);
  }
@@ -42,12 +42,24 @@ diff -up original/dwm.c patched/dwm.c
 +void
 +hidtoggle(const Arg *arg)
 +{
-+	Client *c = selmon->sel;
-+	if (!c) return;
-+       if (selmon->hidsel)
-+		show(NULL);
-+	else
-+		hide(NULL);
++	Client *c;
++	if (arg->v) { 
++		c = (Client*)arg->v;
++		if (HIDDEN(c))
++			showwin(c);
++		else {
++			hidewin(c);
++			focus(NULL);
++			arrange(c->mon);
++		}
++	} else {
++		c = selmon->sel;
++		if (!c) return;
++		if (selmon->hidsel)
++			show(NULL);
++		else
++			hide(NULL);
++	}
 +}
 +
  int

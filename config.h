@@ -115,6 +115,9 @@ static char *mon_man_ctrl[]  = { "sh", "-c", LOCAL_DSCR("mon_man_ctrl", EMPTY_CM
 static char *screenshot[]  = { "sh", "-c", LOCAL_DSCR("screenshot", EMPTY_CMD), NULL };
 static char *screenshot_shift[]  = { "sh", "-c", LOCAL_DSCR("screenshot_shift", EMPTY_CMD), NULL };
 static char *screenshot_ctrl[]  = { "sh", "-c", LOCAL_DSCR("screenshot_ctrl", EMPTY_CMD), NULL };
+static char *media[]  = { "sh", "-c", LOCAL_DSCR("media", "pavucontrol"), NULL };
+static char *media_shift[]  = { "sh", "-c", LOCAL_DSCR("media_shift", EMPTY_CMD), NULL };
+static char *media_ctrl[]  = { "sh", "-c", LOCAL_DSCR("media_ctrl", EMPTY_CMD), NULL };
 static char *user_cmd[]  = { "sh", "-c", LOCAL_DSCR("user_cmd", EMPTY_CMD), NULL };
 static char *user_cmd_shift[]  = { "sh", "-c", LOCAL_DSCR("user_cmd_shift", EMPTY_CMD), NULL };
 static char *user_cmd_ctrl[]  = { "sh", "-c", LOCAL_DSCR("user_cmd_ctrl", EMPTY_CMD), NULL };
@@ -164,6 +167,9 @@ ResourcePref resources[] = {
     { "screenshot",           STRING,  &screenshot[2] },
     { "screenshot_shift",     STRING,  &screenshot_shift[2] },
     { "screenshot_ctrl",      STRING,  &screenshot_ctrl[2] },
+    { "media",                STRING,  &media[2] },
+    { "media_shift",          STRING,  &media_shift[2] },
+    { "media_ctrl",           STRING,  &media_ctrl[2] },
     { "user_cmd",             STRING,  &user_cmd[2] },
     { "user_cmd_shift",       STRING,  &user_cmd_shift[2] },
     { "user_cmd_ctrl",        STRING,  &user_cmd_ctrl[2] },
@@ -197,11 +203,13 @@ static const Key keys[] = {
   { MODKEY,                       XK_y,           spawn,            {.v = screenshot } },
   { MODKEY|ShiftMask,             XK_y,           spawn,            {.v = screenshot_shift } },
   { MODKEY|ControlMask,           XK_y,           spawn,            {.v = screenshot_ctrl } },
+  { MODKEY,                       XK_u,           spawn,            {.v = media } },
+  { MODKEY|ShiftMask,             XK_u,           spawn,            {.v = media_shift } },
+  { MODKEY|ControlMask,           XK_u,           spawn,            {.v = media_ctrl } },
   { MODKEY,                       XK_r,           spawn,            {.v = user_cmd } },
   { MODKEY|ShiftMask,             XK_r,           spawn,            {.v = user_cmd_shift } },
   { MODKEY|ControlMask,           XK_r,           spawn,            {.v = user_cmd_ctrl } },
   { MODKEY|Mod1Mask,              XK_r,           spawn,            {.v = user_cmd_alt } },
-  // TODO screenshot
 
   { MODKEY,                       XK_c,           killclient,       {0} },
   { MODKEY|ShiftMask,             XK_e,           quit,             {0} },
@@ -235,22 +243,22 @@ static const Key keys[] = {
   { MODKEY,                       XK_z,           focusmaster,      {0} },
   { MODKEY|ShiftMask,             XK_z,           zoom,             {0} },
   { MODKEY,                       XK_space,       swapfocus,        {0} },
-  { MODKEY|Mod1Mask,              XK_space,       setlayout,      {0} },
+  { MODKEY|Mod1Mask,              XK_space,       setlayout,        {0} },
 
   { MODKEY,                       XK_v,           hidtoggle,        {0} },
   { MODKEY|ControlMask,           XK_v,           showall,          {0} },
 
   { MODKEY,                       XK_0,           view,             {.ui = ~0 } },
   { MODKEY|ShiftMask,             XK_0,           tag,              {.ui = ~0 } },
-  TAGKEYS(                        XK_1,                      0)
-  TAGKEYS(                        XK_2,                      1)
-  TAGKEYS(                        XK_3,                      2)
-  TAGKEYS(                        XK_4,                      3)
-  TAGKEYS(                        XK_5,                      4)
-  TAGKEYS(                        XK_6,                      5)
-  TAGKEYS(                        XK_7,                      6)
-  TAGKEYS(                        XK_8,                      7)
-  TAGKEYS(                        XK_9,                      8)
+  TAGKEYS(                        XK_1,           0)
+  TAGKEYS(                        XK_2,           1)
+  TAGKEYS(                        XK_3,           2)
+  TAGKEYS(                        XK_4,           3)
+  TAGKEYS(                        XK_5,           4)
+  TAGKEYS(                        XK_6,           5)
+  TAGKEYS(                        XK_7,           6)
+  TAGKEYS(                        XK_8,           7)
+  TAGKEYS(                        XK_9,           8)
 
   { MODKEY,                       XK_minus,       setgaps,        {.i = -5 } },
   { MODKEY,                       XK_equal,       setgaps,        {.i = +5 } },
@@ -275,6 +283,8 @@ static const Button buttons[] = {
   { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
   { ClkWinTitle,          0,              Button1,        togglewin,      {0} },
   { ClkWinTitle,          0,              Button2,        zoom,           {0} },
+  { ClkWinTitle,          0,              Button3,        hidtoggle,      {0} },
+  // TODO scroll through layouts
 
   // scroll
   { ClkWinTitle,          0,              Button4,        focusstackvis,  {.i = -1} },
