@@ -61,6 +61,9 @@ Some of those was modified to fit new version or others:
 - focusmaster
 - swapfocus
 - centeredwindowname
+- swapmonitors
+- push_no_master
+- unfloatvisible
 
 Those were modified more significantly:
 - taglayouts - by default introduces uninitialized second layout by 

@@ -39,4 +39,8 @@ done
 cp "$SCRIPT_DIR/config.h" "$PATCHED"
 if [ "$(uname)" = "FreeBSD" ]; then
     cp "$SCRIPT_DIR/config.freebsd.mk" "$PATCHED/config.mk"
+else
+    if [ -e "$SCRIPT_DIR/config.mk" ]; then
+        cp "$SCRIPT_DIR/config.mk" "$PATCHED/"
+    fi
 fi

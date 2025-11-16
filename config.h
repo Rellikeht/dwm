@@ -203,6 +203,9 @@ static const Key keys[] = {
   { MODKEY,                       XK_y,           spawn,            {.v = screenshot } },
   { MODKEY|ShiftMask,             XK_y,           spawn,            {.v = screenshot_shift } },
   { MODKEY|ControlMask,           XK_y,           spawn,            {.v = screenshot_ctrl } },
+  { MODKEY,                       XK_Print,       spawn,            {.v = screenshot } },
+  { MODKEY|ShiftMask,             XK_Print,       spawn,            {.v = screenshot_shift } },
+  { MODKEY|ControlMask,           XK_Print,       spawn,            {.v = screenshot_ctrl } },
   { MODKEY,                       XK_u,           spawn,            {.v = media } },
   { MODKEY|ShiftMask,             XK_u,           spawn,            {.v = media_shift } },
   { MODKEY|ControlMask,           XK_u,           spawn,            {.v = media_ctrl } },
@@ -284,8 +287,10 @@ static const Button buttons[] = {
   { ClkWinTitle,          0,              Button1,        togglewin,      {0} },
   { ClkWinTitle,          0,              Button2,        zoom,           {0} },
   { ClkWinTitle,          0,              Button3,        hidtoggle,      {0} },
-  // TODO scroll through layouts
+  // TODO
+  // { ClkWinTitle,          Mod1Mask,       Button3,        killclient,     {0} },
 
+  // TODO scroll through layouts
   // scroll
   { ClkWinTitle,          0,              Button4,        focusstackvis,  {.i = -1} },
   { ClkWinTitle,          0,              Button5,        focusstackvis,  {.i = +1} },
