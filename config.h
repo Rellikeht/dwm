@@ -118,11 +118,19 @@ static char dmenumon[2] = "0";
 
 /* commands */
 #define LOCAL_DIR(name) "$HOME/.local/dwm/helpers/" name
+// runs script `name` if it can be run otherwise runs command
+// `cmd`
 #define LOCAL_DSCR(name, cmd)                                  \
     "if [ -x \"" LOCAL_DIR(name) "\" ]; then \"" LOCAL_DIR(    \
         name                                                   \
     ) "\" ; else " cmd " ; fi"
+// same as above but adds argument `arg` to script
 #define LOCAL_DSCR_ARG(name, cmd, arg)                         \
+    "if [ -x \"" LOCAL_DIR(name) "\" ]; then \"" LOCAL_DIR(    \
+        name                                                   \
+    ) "\" " arg " ; else " cmd " ; fi"
+// same as above but adds argument `arg` to both
+#define LOCAL_DSCR_ARG2(name, cmd, arg)                        \
     "if [ -x \"" LOCAL_DIR(name) "\" ]; then \"" LOCAL_DIR(    \
         name                                                   \
     ) "\" " arg " ; else " cmd " " arg " ; fi"
@@ -131,144 +139,233 @@ static char dmenumon[2] = "0";
 static char *dmenucmd[] = {
     "sh",
     "-c",
-    LOCAL_DSCR_ARG("dmenucmd", "exec dmenu_run -F -m", "$0"),
+    LOCAL_DSCR_ARG2("dmenucmd", "exec dmenu_run -m", "$0"),
     dmenumon,
     NULL
 };
 static char *dmenucmd_shift[] = {
     "sh",
     "-c",
-    LOCAL_DSCR_ARG("dmenucmd_shift", "exec dmenu_run -m", "$0"),
+    LOCAL_DSCR_ARG2(
+        "dmenucmd_shift", "exec dmenu_run -F -m", "$0"
+    ),
     dmenumon,
     NULL
 };
 static char *dmenucmd_ctrl[] = {
     "sh",
     "-c",
-    LOCAL_DSCR_ARG("dmenucmd_ctrl", "exec dmenu_run -m", "$0"),
+    LOCAL_DSCR_ARG2("dmenucmd_ctrl", "exec dmenu_run -m", "$0"),
     dmenumon,
     NULL
 };
-// static char *dmenucmd_ctrl[] = { "sh", "-c",
-// LOCAL_DSCR_ARG("dmenucmd_ctrl", "exec dmenu_run -m", "0"),
-// NULL };
 static char *alt_runner[] = {
     "sh",
     "-c",
-    LOCAL_DSCR(
-        "alt_runner", "exec rofi -show run -matching fuzzy"
+    LOCAL_DSCR_ARG(
+        "alt_runner",
+        "exec rofi -show run -matching fuzzy",
+        "$0"
     ),
+    dmenumon,
     NULL
 };
-// static char *alt_runner[] = { "sh", "-c",
-// LOCAL_DSCR_ARG("alt_runner", "exec rofi -show run -matching
-// fuzzy -m", "$0"), dmenumon, NULL };
 static char *alt_runner_shift[] = {
     "sh",
     "-c",
-    LOCAL_DSCR(
+    LOCAL_DSCR_ARG(
         "alt_runner_shift",
-        "exec rofi -show run -matching fuzzy"
+        "exec rofi -show run -matching fuzzy",
+        "$0"
     ),
+    dmenumon,
     NULL
 };
 static char *alt_runner_ctrl[] = {
     "sh",
     "-c",
-    LOCAL_DSCR(
-        "alt_runner_ctrl", "exec rofi -show run -matching fuzzy"
+    LOCAL_DSCR_ARG(
+        "alt_runner_ctrl",
+        "exec rofi -show run -matching fuzzy",
+        "$0"
     ),
+    dmenumon,
     NULL
 };
-// static char *alt_runner_ctrl[] = { "sh", "-c",
-// LOCAL_DSCR_ARG("alt_runner_ctrl", "exec rofi -show run
-// -matching fuzzy -m", "0"), NULL };
 static char *termcmd[] = {
-    "sh", "-c", LOCAL_DSCR("termcmd", "exec tabbed st -w"), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("termcmd", "exec tabbed st -w", "$0"),
+    dmenumon,
+    NULL
 };
 static char *termcmd_shift[] = {
-    "sh", "-c", LOCAL_DSCR("termcmd_shift", "exec st"), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("termcmd_shift", "exec st", "$0"),
+    dmenumon,
+    NULL
 };
 static char *termcmd_ctrl[] = {
-    "sh", "-c", LOCAL_DSCR("termcmd_ctrl", "exec st"), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("termcmd_ctrl", "exec st", "$0"),
+    dmenumon,
+    NULL
 };
 static char *suspend[] = {
-    "sh", "-c", LOCAL_DSCR("suspend", "slock"), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("suspend", "slock", "$0"),
+    dmenumon,
+    NULL
 };
 static char *suspend_shift[] = {
     "sh",
     "-c",
-    LOCAL_DSCR("suspend_shift", "systemctl suspend"),
+    LOCAL_DSCR_ARG("suspend_shift", "systemctl suspend", "$0"),
+    dmenumon,
     NULL
 };
 static char *suspend_ctrl[] = {
     "sh",
     "-c",
-    LOCAL_DSCR("suspend_ctrl", "loginctl suspend"),
+    LOCAL_DSCR_ARG("suspend_ctrl", "loginctl suspend", "$0"),
+    dmenumon,
     NULL
 };
 static char *pass_man[] = {
-    "sh", "-c", LOCAL_DSCR("pass_man", "passmenu"), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG2("pass_man", "passmenu -m", "$0"),
+    dmenumon,
+    NULL
 };
 static char *pass_man_shift[] = {
     "sh",
     "-c",
-    LOCAL_DSCR("pass_man_shift", "passmenu-otp"),
+    LOCAL_DSCR_ARG2("pass_man_shift", "passmenu-otp -m", "$0"),
+    dmenumon,
     NULL
 };
 static char *pass_man_ctrl[] = {
     "sh",
     "-c",
-    LOCAL_DSCR("pass_man_ctrl", "passmenu-otp"),
+    LOCAL_DSCR_ARG2("pass_man_ctrl", "passmenu-otp -m", "$0"),
+    dmenumon,
     NULL
 };
 static char *mon_man[] = {
-    "sh", "-c", LOCAL_DSCR("mon_man", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("mon_man", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *mon_man_shift[] = {
-    "sh", "-c", LOCAL_DSCR("mon_man_shift", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("mon_man_shift", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *mon_man_ctrl[] = {
-    "sh", "-c", LOCAL_DSCR("mon_man_ctrl", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("mon_man_ctrl", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *screenshot[] = {
-    "sh", "-c", LOCAL_DSCR("screenshot", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("screenshot", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *screenshot_shift[] = {
-    "sh", "-c", LOCAL_DSCR("screenshot_shift", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("screenshot_shift", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *screenshot_ctrl[] = {
-    "sh", "-c", LOCAL_DSCR("screenshot_ctrl", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("screenshot_ctrl", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *media[] = {
-    "sh", "-c", LOCAL_DSCR("media", "pavucontrol"), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("media", "pavucontrol", "$0"),
+    dmenumon,
+    NULL
 };
 static char *media_shift[] = {
-    "sh", "-c", LOCAL_DSCR("media_shift", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("media_shift", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *media_ctrl[] = {
-    "sh", "-c", LOCAL_DSCR("media_ctrl", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("media_ctrl", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *user_cmd[] = {
-    "sh", "-c", LOCAL_DSCR("user_cmd", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("user_cmd", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *user_cmd_shift[] = {
-    "sh", "-c", LOCAL_DSCR("user_cmd_shift", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("user_cmd_shift", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *user_cmd_ctrl[] = {
-    "sh", "-c", LOCAL_DSCR("user_cmd_ctrl", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("user_cmd_ctrl", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *user_cmd_alt[] = {
-    "sh", "-c", LOCAL_DSCR("user_cmd_alt", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("user_cmd_alt", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *bar_cmd1[] = {
-    "sh", "-c", LOCAL_DSCR("bar_cmd1", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("bar_cmd1", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *bar_cmd2[] = {
-    "sh", "-c", LOCAL_DSCR("bar_cmd2", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("bar_cmd2", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 static char *bar_cmd3[] = {
-    "sh", "-c", LOCAL_DSCR("bar_cmd3", EMPTY_CMD), NULL
+    "sh",
+    "-c",
+    LOCAL_DSCR_ARG("bar_cmd3", EMPTY_CMD, "$0"),
+    dmenumon,
+    NULL
 };
 
 /*
@@ -335,12 +432,8 @@ static const Key keys[] = {
     {MODKEY | ControlMask, XK_g,         spawn,          {.v = alt_runner_ctrl} },
     {MODKEY | Mod1Mask,    XK_Return,    reload_xres,    {0}                    },
     {MODKEY,               XK_Return,    spawn,          {.v = termcmd}         },
-    {MODKEY | ShiftMask,
-     XK_Return,                          spawn,
-     {.v = termcmd_shift}                                                       },
-    {MODKEY | ControlMask,
-     XK_Return,                          spawn,
-     {.v = termcmd_ctrl}                                                        },
+    {MODKEY | ShiftMask,   XK_Return,    spawn,          {.v = termcmd_shift}   },
+    {MODKEY | ControlMask, XK_Return,    spawn,          {.v = termcmd_ctrl}    },
     {MODKEY,               XK_s,         spawn,          {.v = suspend}         },
     {MODKEY | ShiftMask,   XK_s,         spawn,          {.v = suspend_shift}   },
     {MODKEY | ControlMask, XK_s,         spawn,          {.v = suspend_ctrl}    },
@@ -354,12 +447,8 @@ static const Key keys[] = {
     {MODKEY | ShiftMask,   XK_y,         spawn,          {.v = screenshot_shift}},
     {MODKEY | ControlMask, XK_y,         spawn,          {.v = screenshot_ctrl} },
     {MODKEY,               XK_Print,     spawn,          {.v = screenshot}      },
-    {MODKEY | ShiftMask,
-     XK_Print,                           spawn,
-     {.v = screenshot_shift}                                                    },
-    {MODKEY | ControlMask,
-     XK_Print,                           spawn,
-     {.v = screenshot_ctrl}                                                     },
+    {MODKEY | ShiftMask,   XK_Print,     spawn,          {.v = screenshot_shift}},
+    {MODKEY | ControlMask, XK_Print,     spawn,          {.v = screenshot_ctrl} },
     {MODKEY,               XK_u,         spawn,          {.v = media}           },
     {MODKEY | ShiftMask,   XK_u,         spawn,          {.v = media_shift}     },
     {MODKEY | ControlMask, XK_u,         spawn,          {.v = media_ctrl}      },
