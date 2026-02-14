@@ -12,6 +12,7 @@
 original/
 patched/
 result/
+Session.vim
 
 !Makefile
 !LICENSE
