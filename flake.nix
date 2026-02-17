@@ -13,12 +13,6 @@
   }:
     flake-utils.lib.eachSystem
     flake-utils.lib.allSystems
-    # [
-    #   "x86_64-linux"
-    #   "i686-linux"
-    #   "aarch64-linux"
-    #   "armv7l-linux"
-    # ]
     (system: let
       pkgs = nixpkgs.legacyPackages.${system};
       lib = pkgs.lib;
@@ -31,7 +25,8 @@
         PREFIX = "$(out)";
         CC = pkgs.stdenv.cc;
         PKG_CONFIG = pkgs.pkg-config;
-        dontStrip = true;
+        impureUseNativeOptimizations = true;
+        # dontStrip = true;
 
         nativeBuildInputs = with pkgs; [
           pkg-config
@@ -41,7 +36,7 @@
           xorg.libX11
           xorg.libXft
           xorg.libXinerama
-          # freetype
+          freetype
         ];
 
         buildPhase = ''

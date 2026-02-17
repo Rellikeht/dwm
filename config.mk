@@ -17,6 +17,8 @@ XINERAMAFLAGS ?= -DXINERAMA
 # freetype
 FREETYPELIBS ?= -lfontconfig -lXft
 FREETYPEINC ?= /usr/include/freetype2
+
+# TODO BSDs
 # OpenBSD (uncomment)
 #FREETYPEINC = ${X11INC}/freetype2
 #MANPREFIX = ${PREFIX}/man
@@ -27,9 +29,7 @@ LIBS ?= -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
 
 # flags
 CPPFLAGS ?= -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
-#CFLAGS   = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
-# CFLAGS   ?= -std=c99 -pedantic -Wall -Wno-deprecated-declarations -O2 ${INCS} ${CPPFLAGS}
-CFLAGS   ?= -std=c99 -pedantic -Wall -Wno-deprecated-declarations -g -Og ${INCS} ${CPPFLAGS}
+CFLAGS   ?= -std=c99 -pedantic -Wall -Wno-deprecated-declarations -O2 -march=native -mtune=native ${INCS} ${CPPFLAGS}
 LDFLAGS  ?= ${LIBS}
 
 # Solaris
