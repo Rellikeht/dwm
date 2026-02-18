@@ -39,11 +39,10 @@ static const char *fonts[] = {
     font,
     // All possible combinations just in case
     "MesloLGS NF:size=12:antialias=true:autohint=true",
-    "MesloLGS Nerd FontF:size=12:antialias=true:autohint=true",
+    "MesloLGS Nerd Font:size=12:antialias=true:autohint=true",
     "MesloLGS:size=12:antialias=true:autohint=true",
-    "MesloLGS:size=12",
     "MesloLGS NF:size=12",
-    "MesloLGS Nerd FontF:size=12",
+    "MesloLGS Nerd Font:size=12",
     "MesloLGS:size=12",
     "monospace:size=12",
 };
