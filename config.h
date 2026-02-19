@@ -37,6 +37,12 @@ static const char *fonts[] = {
     font,
     // All possible combinations just in case
     "MesloLGS:size=12",
+    "MesloLGS NF:size=12:antialias=true:autohint=true",
+    "MesloLGS NF:size=12",
+    "MesloLGS Nerd Font:size=12:antialias=true:autohint=true",
+    "MesloLGS Nerd Font:size=12",
+    "MesloLG S NF:size=12:antialias=true:autohint=true",
+    "MesloLG S NF:size=12",
     "Liberation Mono:size=12:antialias=true:autohint=true",
     "Liberation Mono:size=12",
     "monospace:size=12",
@@ -78,8 +84,7 @@ static const int lockfullscreen =
 static const Layout layouts[] = {
     /* symbol     arrange function */
     {"[]=", tile      }, /* first entry is default */
-    {"><>",
-     NULL             }, /* no layout function means floating behavior */
+    {"><>", NULL      }, /* no layout function means floating behavior */
     {"[M]", monocle   },
     {"DbD", doubledeck},
 };
@@ -366,14 +371,14 @@ static char *bar_cmd3[] = {
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-    {"font",             STRING,  &font               },
-    {"dmenufont",        STRING,  &dmenufont          },
-    {"normbgcolor",      STRING,  &normbgcolor        },
-    {"normbordercolor",  STRING,  &normbordercolor    },
-    {"normfgcolor",      STRING,  &normfgcolor        },
-    {"selbgcolor",       STRING,  &selbgcolor         },
-    {"selbordercolor",   STRING,  &selbordercolor     },
-    {"selfgcolor",       STRING,  &selfgcolor         },
+    {"font",             STRING,  font               },
+    {"dmenufont",        STRING,  dmenufont          },
+    {"normbgcolor",      STRING,  normbgcolor        },
+    {"normbordercolor",  STRING,  normbordercolor    },
+    {"normfgcolor",      STRING,  normfgcolor        },
+    {"selbgcolor",       STRING,  selbgcolor         },
+    {"selbordercolor",   STRING,  selbordercolor     },
+    {"selfgcolor",       STRING,  selfgcolor         },
     {"borderpx",         INTEGER, &borderpx           },
     {"snap",             INTEGER, &snap               },
     {"showbar",          INTEGER, &showbar            },

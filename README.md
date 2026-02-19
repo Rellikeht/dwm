@@ -57,7 +57,9 @@ Some of those was modified to fit new version or others:
 - activetagindicatorbar
 - attachdirection
 - awesomebar
-- xresources
+- xresources - config was heavily modified to not cause segfaults on 
+  improperly handled pointers and too small buffers, seems like original 
+  author didn't care enough about safety
 - focusmaster
 - swapfocus
 - centeredwindowname
