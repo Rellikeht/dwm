@@ -31,19 +31,14 @@ static char *colors[][3] = {
     [SchemeHid] = {normbgcolor, normfgcolor, selbordercolor },
 };
 
-static char font[] =
-    "MesloLGS NF:size=12:antialias=true:autohint=true";
-static char dmenufont[] =
-    "MesloLGS NF:size=12:antialias=true:autohint=true";
+static char font[256] = "MesloLGS:size=12:antialias=true:autohint=true";
+static char dmenufont[256] = "MesloLGS:size=12:antialias=true:autohint=true";
 static const char *fonts[] = {
     font,
     // All possible combinations just in case
-    "MesloLGS NF:size=12:antialias=true:autohint=true",
-    "MesloLGS Nerd Font:size=12:antialias=true:autohint=true",
-    "MesloLGS:size=12:antialias=true:autohint=true",
-    "MesloLGS NF:size=12",
-    "MesloLGS Nerd Font:size=12",
     "MesloLGS:size=12",
+    "Liberation Mono:size=12:antialias=true:autohint=true",
+    "Liberation Mono:size=12",
     "monospace:size=12",
 };
 
@@ -387,37 +382,6 @@ ResourcePref resources[] = {
     {"resizehints",      INTEGER, &resizehints        },
     {"attachdirection",  INTEGER, &attachdirection    },
     {"mfact",            FLOAT,   &mfact              },
-    {"dmenucmd",         STRING,  &dmenucmd[2]        },
-    {"dmenucmd_shift",   STRING,  &dmenucmd_shift[2]  },
-    {"dmenucmd_ctrl",    STRING,  &dmenucmd_ctrl[2]   },
-    {"alt_runner",       STRING,  &alt_runner[2]      },
-    {"alt_runner_shift", STRING,  &alt_runner_shift[2]},
-    {"alt_runner_ctrl",  STRING,  &alt_runner_ctrl[2] },
-    {"termcmd",          STRING,  &termcmd[2]         },
-    {"termcmd_shift",    STRING,  &termcmd_shift[2]   },
-    {"termcmd_ctrl",     STRING,  &termcmd_ctrl[2]    },
-    {"suspend",          STRING,  &suspend[2]         },
-    {"suspend_shift",    STRING,  &suspend_shift[2]   },
-    {"suspend_ctrl",     STRING,  &suspend_ctrl[2]    },
-    {"pass_man",         STRING,  &pass_man[2]        },
-    {"pass_man_shift",   STRING,  &pass_man_shift[2]  },
-    {"pass_man_ctrl",    STRING,  &pass_man_ctrl[2]   },
-    {"mon_man",          STRING,  &mon_man[2]         },
-    {"mon_man_shift",    STRING,  &mon_man_shift[2]   },
-    {"mon_man_ctrl",     STRING,  &mon_man_ctrl[2]    },
-    {"screenshot",       STRING,  &screenshot[2]      },
-    {"screenshot_shift", STRING,  &screenshot_shift[2]},
-    {"screenshot_ctrl",  STRING,  &screenshot_ctrl[2] },
-    {"media",            STRING,  &media[2]           },
-    {"media_shift",      STRING,  &media_shift[2]     },
-    {"media_ctrl",       STRING,  &media_ctrl[2]      },
-    {"user_cmd",         STRING,  &user_cmd[2]        },
-    {"user_cmd_shift",   STRING,  &user_cmd_shift[2]  },
-    {"user_cmd_ctrl",    STRING,  &user_cmd_ctrl[2]   },
-    {"user_cmd_alt",     STRING,  &user_cmd_alt[2]    },
-    {"bar_cmd1",         STRING,  &bar_cmd1[2]        },
-    {"bar_cmd2",         STRING,  &bar_cmd2[2]        },
-    {"bar_cmd3",         STRING,  &bar_cmd3[2]        },
 };
 
 static const Key keys[] = {
