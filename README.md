@@ -57,9 +57,6 @@ Some of those was modified to fit new version or others:
 - activetagindicatorbar
 - attachdirection
 - awesomebar
-- xresources - config was heavily modified to not cause segfaults on 
-  improperly handled pointers and too small buffers, seems like original 
-  author didn't care enough about safety
 - focusmaster
 - swapfocus
 - centeredwindowname
@@ -74,6 +71,9 @@ Those were modified more significantly:
 - unfloatvisible - moved code from separate file to `dwm.c`
 - push_no_master - to work in both master and client area but not cross 
   boundary between them
+- xresources - config was heavily modified to not cause segfaults on 
+  improperly handled pointers and too small buffers, seems like original 
+  author didn't care enough about safety
 
 ### Mine
 

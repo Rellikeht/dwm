@@ -21,7 +21,7 @@ static char selfgcolor[] = "#04202c";
 static char selbordercolor[] = "#0760a2";
 static char selbgcolor[] = "#02aacd";
 
-// TODO
+// TODO improve I guess
 static char *colors[][3] = {
     /*               fg           bg           border   */
     [SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor},
@@ -65,9 +65,6 @@ static const Rule rules[] = {
     {"yad",            NULL, NULL,                 0, 1, -1},
     {"steamwebhelper", NULL, "Friends List",       0, 1, -1},
     {NULL,             NULL, "Picture-in-Picture", 0, 1, -1},
-    // xev, it seems to not have class
-    // {NULL,              NULL,              "Event Tester", 0,
-    // 1,           -1},
 };
 
 /* layout(s) */
@@ -500,10 +497,8 @@ static const Button buttons[] = {
     {ClkWinTitle,   0,         Button2, zoom,           {0}               },
     {ClkWinTitle,   0,         Button3, hidtoggle,      {0}               },
     // TODO
-    // { ClkWinTitle,          Mod1Mask,       Button3,
-    // killclient,     {0} },
+    // {ClkWinTitle,   Mod1Mask,  Button3, killclient,     {0}               },
 
-    // TODO scroll through layouts
     // scroll
     {ClkWinTitle,   0,         Button4, focusstackvis,  {.i = -1}         },
     {ClkWinTitle,   0,         Button5, focusstackvis,  {.i = +1}         },
